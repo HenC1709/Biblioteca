@@ -1,0 +1,28 @@
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\Bibiotecla nuevo\bin\Debug\net10.0\Bibiotecla nuevo.exe
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\Bibiotecla nuevo\bin\Debug\net10.0\Bibiotecla nuevo.deps.json
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\Bibiotecla nuevo\bin\Debug\net10.0\Bibiotecla nuevo.runtimeconfig.json
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\Bibiotecla nuevo\bin\Debug\net10.0\Bibiotecla nuevo.dll
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\Bibiotecla nuevo\bin\Debug\net10.0\Bibiotecla nuevo.pdb
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\Bibiotecla nuevo\obj\Debug\net10.0\Bibiotecla nuevo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\Bibiotecla nuevo\obj\Debug\net10.0\Bibiotecla nuevo.AssemblyInfoInputs.cache
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\Bibiotecla nuevo\obj\Debug\net10.0\Bibiotecla nuevo.AssemblyInfo.cs
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\Bibiotecla nuevo\obj\Debug\net10.0\Bibiotecla nuevo.csproj.CoreCompileInputs.cache
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\Bibiotecla nuevo\obj\Debug\net10.0\Bibiotecla nuevo.dll
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\Bibiotecla nuevo\obj\Debug\net10.0\refint\Bibiotecla nuevo.dll
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\Bibiotecla nuevo\obj\Debug\net10.0\Bibiotecla nuevo.pdb
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\Bibiotecla nuevo\obj\Debug\net10.0\Bibiotecla nuevo.genruntimeconfig.cache
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\Bibiotecla nuevo\obj\Debug\net10.0\ref\Bibiotecla nuevo.dll
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\BibliotecaV1\bin\Debug\net10.0\Bibiotecla nuevo.exe
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\BibliotecaV1\bin\Debug\net10.0\Bibiotecla nuevo.deps.json
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\BibliotecaV1\bin\Debug\net10.0\Bibiotecla nuevo.runtimeconfig.json
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\BibliotecaV1\bin\Debug\net10.0\Bibiotecla nuevo.dll
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\BibliotecaV1\bin\Debug\net10.0\Bibiotecla nuevo.pdb
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\BibliotecaV1\obj\Debug\net10.0\Bibiotecla nuevo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\BibliotecaV1\obj\Debug\net10.0\Bibiotecla nuevo.AssemblyInfoInputs.cache
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\BibliotecaV1\obj\Debug\net10.0\Bibiotecla nuevo.AssemblyInfo.cs
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\BibliotecaV1\obj\Debug\net10.0\Bibiotecla nuevo.csproj.CoreCompileInputs.cache
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\BibliotecaV1\obj\Debug\net10.0\Bibiotecla nuevo.dll
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\BibliotecaV1\obj\Debug\net10.0\refint\Bibiotecla nuevo.dll
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\BibliotecaV1\obj\Debug\net10.0\Bibiotecla nuevo.pdb
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\BibliotecaV1\obj\Debug\net10.0\Bibiotecla nuevo.genruntimeconfig.cache
+C:\Users\HP VICTUS\Desktop\proyectos_dotNet\BibliotecaV1\obj\Debug\net10.0\ref\Bibiotecla nuevo.dll
