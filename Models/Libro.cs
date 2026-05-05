@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.IO;
 using System.Collections.Generic;
@@ -8,11 +9,13 @@ namespace BibliotecaV1.Models
 {
    class Libro
 {
-    public string Titulo {get; set;}
 
-    public string Autor {get; set;}
+   [JsonPropertyName("ID")] public int ID { get; set; }
+    public string Titulo { get; set; }
 
-    public string Disponible {get; set;}
+    public string Autor { get; set; }
+
+    [JsonPropertyName("Unidades")] public int Unidades {get; set;}
 
     public DateTime FechaDeIngreso { get; set; }
 
@@ -48,22 +51,24 @@ public static void CargarDatos()
 
     // constructor para crear un libro de golpe 
 
-    public Libro(string titulo, string autor, string disponible)
+    public Libro(int id, string titulo, string autor, int unidades)
     {
-        Titulo = titulo;
+        this.ID = id;
 
-        Autor = autor;
+        this.Titulo = titulo;
 
-        Disponible = disponible;
+        this.Autor = autor;
 
-        FechaDeIngreso = DateTime.Now;
+        this.Unidades = unidades;
+
+        this.FechaDeIngreso = DateTime.Now;
     }
 
 
 public override string ToString()
     {
        Console.ForegroundColor = ConsoleColor.Green;
-       return $"{Titulo} - {Autor} - {Disponible} Ingresado el: {FechaDeIngreso}";
+       return $"[ID: {ID}] -{Titulo} (Autor: {Autor}) - Unidades: {Unidades} - Ingresado el: {FechaDeIngreso.ToShortDateString()}";
     }
 
 } 
