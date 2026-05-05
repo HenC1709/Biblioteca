@@ -63,8 +63,22 @@ class Program
                         Console.WriteLine("No tienes permiso xd");
                     }
                     break;
+
+                    case"3":
+                    if (usuarioActual.rol == Rol.Usuario)
+                    {
+                        miDepo.PrestarLibro();
+                    }
+                    else
+                    {
+                        Console.WriteLine("eres admin, permiso no necesitas xd");
+                         System.Threading.Thread.Sleep(100);
+                        Console.WriteLine("Accediendo al sistema");
+                        miDepo.PrestarLibro();
+                    } 
+                    break;
                     
-                    case "3":
+                    case "4":
                     if (usuarioActual.rol == Rol.Admin)
                     {
                         Lista.MostrarLista();

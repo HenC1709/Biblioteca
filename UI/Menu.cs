@@ -10,11 +10,12 @@ class Menu
     Console.WriteLine("==== SISTEMA DE BIBLIOTECA V1 ====");
 
     Console.WriteLine("1. Buscar Libro");
+    Console.WriteLine("3. Prestamos. ");
 
     if (usuario.rol == Rol.Admin)
     {
         Console.WriteLine("2. Agregar Libro");
-        Console.WriteLine("3. Lista");
+        Console.WriteLine("4. Lista");
         Console.WriteLine("0. Salir");
     }
     else

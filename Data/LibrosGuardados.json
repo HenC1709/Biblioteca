@@ -5,5 +5,33 @@
     "Autor": "Rifujin na Magonote",
     "Unidades": 5,
     "FechaDeIngreso": "2026-05-04T20:07:22.082311-04:00"
+  },
+  {
+    "ID": 2,
+    "Titulo": "Danmachi Vol 1",
+    "Autor": "Fujino Omori",
+    "Unidades": 3,
+    "FechaDeIngreso": "2026-05-04T20:27:25.3049528-04:00"
+  },
+  {
+    "ID": 3,
+    "Titulo": "Harry Potter",
+    "Autor": "J. K. Rowling",
+    "Unidades": 0,
+    "FechaDeIngreso": "2026-05-04T20:27:42.2696609-04:00"
+  },
+  {
+    "ID": 4,
+    "Titulo": "Mushoku tensei Vol 2",
+    "Autor": "Rifujin na Magonote",
+    "Unidades": 2,
+    "FechaDeIngreso": "2026-05-04T20:28:08.8883583-04:00"
+  },
+  {
+    "ID": 5,
+    "Titulo": "Date a live set Vol 1-10",
+    "Autor": "Koshi Tachibana",
+    "Unidades": 0,
+    "FechaDeIngreso": "2026-05-04T20:30:00.5061793-04:00"
   }
 ]
