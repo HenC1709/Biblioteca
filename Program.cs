@@ -79,16 +79,32 @@ class Program
                     break;
                     
                     case "4":
-                    if (usuarioActual.rol == Rol.Admin)
+                    if (usuarioActual.rol == Rol.Usuario)
                     {
                         Lista.MostrarLista();
                     }
                     else
                     {
-                        Console.WriteLine("No tienes permiso xd");
+                        Console.WriteLine("eres admin, permiso no necesitas xd");
+                         System.Threading.Thread.Sleep(100);
+                        Console.WriteLine("Accediendo al sistema");
+                        Lista.MostrarLista();
                     }
                     break;
-
+                    
+                    case"5":
+                    if (usuarioActual.rol == Rol.Usuario)
+                    {
+                        miDepo.DevolverLibro();
+                    }
+                    else
+                    {
+                     Console.WriteLine("eres admin, permiso no necesitas xd");
+                     System.Threading.Thread.Sleep(100);
+                    Console.WriteLine("Accediendo al sistema");
+                    miDepo.DevolverLibro();
+                    }
+                   break;
                     
                     case "0":
                     ejecutando = false;

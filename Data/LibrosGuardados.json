@@ -24,14 +24,28 @@
     "ID": 4,
     "Titulo": "Mushoku tensei Vol 2",
     "Autor": "Rifujin na Magonote",
-    "Unidades": 2,
+    "Unidades": 4,
     "FechaDeIngreso": "2026-05-04T20:28:08.8883583-04:00"
   },
   {
     "ID": 5,
     "Titulo": "Date a live set Vol 1-10",
     "Autor": "Koshi Tachibana",
-    "Unidades": 0,
+    "Unidades": 1,
     "FechaDeIngreso": "2026-05-04T20:30:00.5061793-04:00"
+  },
+  {
+    "ID": 6,
+    "Titulo": "Danmachi Set Vol 10-21",
+    "Autor": "Fujino Omori",
+    "Unidades": 6,
+    "FechaDeIngreso": "2026-05-04T21:16:04.3720366-04:00"
+  },
+  {
+    "ID": 7,
+    "Titulo": "Mushoku Tensei Vol 3",
+    "Autor": "Rifujin na Magonete",
+    "Unidades": 9,
+    "FechaDeIngreso": "2026-05-04T21:17:32.6272999-04:00"
   }
 ]

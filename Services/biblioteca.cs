@@ -75,6 +75,57 @@ namespace BibliotecaV1.Services
         Console.ResetColor();
            }
         } 
+
+        public void DevolverLibro()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("======================");
+            Console.WriteLine(" SISTEMA DE DEVOLUCIÓN ");
+            Console.WriteLine("======================");
+            Console.ResetColor();
+            Libro.CargarDatos();
+
+            Console.Write("\nIngrese el ID del articulo a Devolver: ");
+
+            // verificamos que el user escriba un numero
+
+            if (int.TryParse(Console.ReadLine(), out int idBuscado))
+            {
+                var articulo = Lista.listaLibros.FirstOrDefault(l => l.ID == idBuscado);
+                if (articulo != null) // si lo encuentra xd
+                {
+                    if (articulo.Unidades >= 0) // por si algun gracioso cree que tiene libros infinitos
+                    {
+                        articulo.Unidades++; //para sumar una unidad!
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.WriteLine($"\n¡DEVOLUCION EXITOSA! {articulo.Titulo}");
+                        Console.WriteLine($"Nuevo stock disponible: {articulo.Unidades}");
+                       // no olvidar actualizar el json
+                       ActualizarCatalogojson();
+                 
+                    }
+                    else
+                    {
+                 Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\nLo siento, no encontramos el registro con el ID {idBuscado}");
+                Console.ResetColor();
+                    }
+                }
+                else
+                {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"\nNo existe ningún artículo con el ID: {idBuscado} xd");
+            Console.ResetColor();
+                }
+            }
+            else
+            {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("\nPor favor, ingresa un ID numérico válido.");
+        Console.ResetColor();
+           }
+        } 
    
    private void ActualizarCatalogojson()
         {

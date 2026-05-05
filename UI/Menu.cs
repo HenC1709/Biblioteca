@@ -9,13 +9,23 @@ class Menu
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine("==== SISTEMA DE BIBLIOTECA V1 ====");
 
-    Console.WriteLine("1. Buscar Libro");
-    Console.WriteLine("3. Prestamos. ");
-
     if (usuario.rol == Rol.Admin)
+        {
+         Console.WriteLine("1. Buscar Libro");
+         Console.WriteLine("2. Agregar Libro");
+         Console.WriteLine("3. Prestamos. ");
+         Console.WriteLine("4. Lista");
+         Console.WriteLine("5. Devolución. ");
+         Console.WriteLine("0. Salir");
+
+        }
+
+   
+    else if (usuario.rol == Rol.Usuario)
     {
-        Console.WriteLine("2. Agregar Libro");
+        Console.WriteLine("1. Buscar Libro");
         Console.WriteLine("4. Lista");
+        Console.WriteLine("5. Devolución. ");
         Console.WriteLine("0. Salir");
     }
     else

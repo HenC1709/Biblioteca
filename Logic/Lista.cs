@@ -10,6 +10,7 @@ namespace BibliotecaV1.Logic
 
      public static void MostrarLista()
     {
+        Libro.CargarDatos();
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.DarkMagenta;
         Console.WriteLine(" === Lista de Libros === ");
