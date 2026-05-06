@@ -4,13 +4,13 @@
     "Titulo": "Mushoku tensei Vol 1",
     "Autor": "Rifujin na Magonote",
     "Unidades": 5,
-    "FechaDeIngreso": "2026-05-04T20:07:22.082311-04:00"
+    "FechaDeIngreso": "2026-05-03T20:07:22.082311-04:00"
   },
   {
     "ID": 2,
     "Titulo": "Danmachi Vol 1",
     "Autor": "Fujino Omori",
-    "Unidades": 3,
+    "Unidades": 2,
     "FechaDeIngreso": "2026-05-04T20:27:25.3049528-04:00"
   },
   {
@@ -47,5 +47,26 @@
     "Autor": "Rifujin na Magonete",
     "Unidades": 9,
     "FechaDeIngreso": "2026-05-04T21:17:32.6272999-04:00"
+  },
+  {
+    "ID": 8,
+    "Titulo": "Metro 2033",
+    "Autor": "Dmitry Glukhovsky.",
+    "Unidades": 2,
+    "FechaDeIngreso": "2026-05-05T21:03:53.3782672-04:00"
+  },
+  {
+    "ID": 9,
+    "Titulo": "Metro 2034",
+    "Autor": "Dmitry Glukhovsky.",
+    "Unidades": 2,
+    "FechaDeIngreso": "2026-05-05T21:04:10.1267071-04:00"
+  },
+  {
+    "ID": 10,
+    "Titulo": "Metro 2035",
+    "Autor": "Dmitry Glukhovsky.",
+    "Unidades": 8,
+    "FechaDeIngreso": "2026-05-05T21:04:20.6106734-04:00"
   }
 ]

@@ -18,101 +18,16 @@ class Program
         // Guardamos Usuario Actual
         Auth.Login(usuarioActual);
         Console.WriteLine($"Sesión iniciada como: {usuarioActual.nombre}");
-        // Creamos los objetos principales
-       
-        Menu miMenu = new Menu();
-        Biblioteca miDepo = new Biblioteca();
-        BusquedaDeLibros buscador = new BusquedaDeLibros();
-        
+        System.Threading.Thread.Sleep(1000);
+     //Molde de nuevo Menu!
 
-        // Bucle principal para que no se cierre
-        bool ejecutando = true;
-        while (ejecutando)
+     if (usuarioActual.rol == Rol.Admin)
         {
-            miMenu.Mostrar(usuarioActual);
-            string opc = Console.ReadLine()!;
-
-            switch (opc)
-            {
-                    case "1":
-                    buscador.Buscar(miDepo);
-                    break;
-                   
-                    case "2":
-                    if (usuarioActual.rol == Rol.Admin)
-                    {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write("Título: "); string t = Console.ReadLine()!;
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write("Autor: "); string a = Console.ReadLine()!;
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write("Unidades Diponibles: "); //para pedir unidades disponibles para usar xd
-                    int u = int.Parse(Console.ReadLine()!); // Magia para generar ID de forma automatica, esto toma los libros añadidos y los idea
-                    Libro.CargarDatos();
-
-                    int nuevoId = 1;
-                    if (Lista.listaLibros != null && Lista.listaLibros.Count > 0)
-                        {
-                            nuevoId = Lista.listaLibros.Max(l => l.ID) + 1;
-                        } // ahora creamos el libro con su nuevo ID y unidades
-                        Libro nuevoLibro = new Libro(nuevoId, t, a, u);
-                        miDepo.AgregarLibro(nuevoLibro);
-                    }
-                    else
-                    {
-                        Console.WriteLine("No tienes permiso xd");
-                    }
-                    break;
-
-                    case"3":
-                    if (usuarioActual.rol == Rol.Usuario)
-                    {
-                        miDepo.PrestarLibro();
-                    }
-                    else
-                    {
-                        Console.WriteLine("eres admin, permiso no necesitas xd");
-                         System.Threading.Thread.Sleep(100);
-                        Console.WriteLine("Accediendo al sistema");
-                        miDepo.PrestarLibro();
-                    } 
-                    break;
-                    
-                    case "4":
-                    if (usuarioActual.rol == Rol.Usuario)
-                    {
-                        Lista.MostrarLista();
-                    }
-                    else
-                    {
-                        Console.WriteLine("eres admin, permiso no necesitas xd");
-                         System.Threading.Thread.Sleep(100);
-                        Console.WriteLine("Accediendo al sistema");
-                        Lista.MostrarLista();
-                    }
-                    break;
-                    
-                    case"5":
-                    if (usuarioActual.rol == Rol.Usuario)
-                    {
-                        miDepo.DevolverLibro();
-                    }
-                    else
-                    {
-                     Console.WriteLine("eres admin, permiso no necesitas xd");
-                     System.Threading.Thread.Sleep(100);
-                    Console.WriteLine("Accediendo al sistema");
-                    miDepo.DevolverLibro();
-                    }
-                   break;
-                    
-                    case "0":
-                    ejecutando = false;
-                    break;
-            }
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("\nPresiona cualquier tecla para continuar...");
-            Console.ReadKey();
+            Menu.MenuAdmin(usuarioActual);
         }
-    }
+    else
+        {
+            Menu.MenuUsuario(usuarioActual);
+        }
+    }     
 }

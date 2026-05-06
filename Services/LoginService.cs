@@ -12,7 +12,7 @@ namespace BibliotecaV1.Services
         {
             Console.Clear();
             Console.WriteLine(" ==== ¿Tienes cuenta? =======");
-            Console.Write("(SI/NO) ¿?");
+            Console.Write("(S/N): ");
             string respuesta = Console.ReadLine()!.ToUpper();
             var lista = UsuarioServicio.Cargar();
 
@@ -56,11 +56,11 @@ namespace BibliotecaV1.Services
             var listaUsuarios = UsuarioServicio.Cargar();
 
             var user = listaUsuarios
-                .FirstOrDefault(u => u.nombre.ToLower() == nombre.ToLower());
+                .FirstOrDefault(u => u.nombre.ToLower() == nombre.ToLower() && u.id == idlogin);
 
             if (user != null)
             {
-                Console.WriteLine($"Bienvenido {user.nombre} 😎");
+                Console.WriteLine($"Bienvenido {user.nombre} ROL: {user.rol} 😎 ");
                 Console.ReadKey();
                 return user;
             }
