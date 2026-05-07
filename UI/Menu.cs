@@ -8,10 +8,9 @@ namespace BibliotecaV1.Logic
 {
    public class Menu
 { 
-   public static void MenuUsuario(Usuario usuario)
+   public static void MenuUsuario(Usuario usuario, Biblioteca miDepo)
    {
    string opción; //Instanciamos aquí para que el usuario tenga acceso a las herramientas
-   Biblioteca miDepo = new Biblioteca();
     BusquedaDeLibros buscador = new BusquedaDeLibros();
 
     do
@@ -36,7 +35,7 @@ namespace BibliotecaV1.Logic
           break;
 
           case "2":
-          Lista.MostrarLista();
+          miDepo.MostrarCatalogo();
           break;
 
           case "3":
@@ -64,10 +63,9 @@ namespace BibliotecaV1.Logic
       } 
     while (opción != "0");
    }
-   public static void MenuAdmin(Usuario usuario)
+   public static void MenuAdmin(Usuario usuario, Biblioteca miDepo)
     {
             string opcion;
-       Biblioteca miDepo = new Biblioteca();
       BusquedaDeLibros buscador = new BusquedaDeLibros();
 
       do
@@ -93,21 +91,18 @@ namespace BibliotecaV1.Logic
                break;
 
                case "2":
-              Console.ForegroundColor = ConsoleColor.Yellow;
-              Console.Write("Título: "); string t = Console.ReadLine()!;
-              Console.ForegroundColor = ConsoleColor.Yellow;
-              Console.Write("Autor: "); string a = Console.ReadLine()!;
-              Console.ForegroundColor = ConsoleColor.Yellow;
-             Console.Write("Unidades Diponibles: "); //para pedir unidades disponibles para usar xd
-            int u = int.Parse(Console.ReadLine()!); // Magia para generar ID de forma automatica, esto toma los libros añadidos y los idea
-            Libro.CargarDatos();
-           int nuevoId = 1;
-            if (Lista.listaLibros != null && Lista.listaLibros.Count > 0)
-            {
-            nuevoId = Lista.listaLibros.Max(l => l.ID) + 1;
-            } // ahora creamos el libro con su nuevo ID y unidades
-            Libro nuevoLibro = new Libro(nuevoId, t, a, u);
-            miDepo.AgregarLibro(nuevoLibro);
+               Console.ForegroundColor = ConsoleColor.Yellow;
+               Console.Write("Título: "); string t = Console.ReadLine()!;
+               Console.Write("Autor: "); string a = Console.ReadLine()!;
+               Console.Write("Unidades Disponibles: ");
+               if (int.TryParse(Console.ReadLine(), out int u))
+                  {
+                     miDepo.RegistrarNuevoLibro(t, a, u);
+                  }
+                  else
+                  {
+                     Console.WriteLine("Error: las unidades deben ser en numero. ");
+                  }
             break;
 
             case "3":
@@ -117,7 +112,7 @@ namespace BibliotecaV1.Logic
 
             case "4":
             Console.WriteLine("Accediendo al sistema...");
-            Lista.MostrarLista();
+            miDepo.MostrarCatalogo();
             break;
 
             case "5":

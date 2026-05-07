@@ -1,21 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.Text.Json;
-using BibliotecaV1.Logic;
+using BibliotecaV1.Data;
 using BibliotecaV1.Models;
+using BibliotecaV1.Logic;
 
 namespace BibliotecaV1.Services
 {
-    class Biblioteca
+  public class Biblioteca
     {
+
+        private readonly LibroRepository _repo = new LibroRepository();
+        public List<Libro> libros { get; private set; }
+
+        public Biblioteca()
+        {
+            libros = _repo.LeerLibros();
+        }
 
     public void AgregarLibro(Libro nuevoLibro)
     {
-        Lista.listaLibros.Add(nuevoLibro);
-
-       Libro.GuardarLibro(nuevoLibro);
-
-        Console.WriteLine($"libro '{nuevoLibro.Titulo}' agregado al sistema");
+       libros.Add(nuevoLibro);
+       _repo.GuardarLibros(libros);
+    Console.WriteLine($"libro '{nuevoLibro.Titulo}' agregado al sistema");
 
     }
 
@@ -27,7 +31,6 @@ namespace BibliotecaV1.Services
             Console.WriteLine(" SISTEMA DE PRÉSTAMOS ");
             Console.WriteLine("======================");
             Console.ResetColor();
-            Libro.CargarDatos();
 
             Console.Write("\nIngrese el ID del articulo a pedir: ");
 
@@ -35,12 +38,13 @@ namespace BibliotecaV1.Services
 
             if (int.TryParse(Console.ReadLine(), out int idBuscado))
             {
-                var articulo = Lista.listaLibros.FirstOrDefault(l => l.ID == idBuscado);
+                var articulo =  libros.FirstOrDefault(l => l.ID == idBuscado);
                 if (articulo != null) // si lo encuentra xd
                 {
                     if (articulo.Unidades > 0) // por si algun gracioso cree que tiene libros infinitos
                     {
                         articulo.Unidades--; //para restar una unidad!
+                        _repo.GuardarLibros(libros);
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                         Console.WriteLine($"\n¡ÉXITO! has pedido prestado: {articulo.Titulo}");
 
@@ -50,8 +54,6 @@ namespace BibliotecaV1.Services
                         Console.WriteLine($"Unidades en bodega son: {articulo.Unidades}");
                         Console.ResetColor();
                        
-                       // no olvidar actualizar el json
-                       ActualizarCatalogojson();
                  
                     }
                     else
@@ -84,7 +86,6 @@ namespace BibliotecaV1.Services
             Console.WriteLine(" SISTEMA DE DEVOLUCIÓN ");
             Console.WriteLine("======================");
             Console.ResetColor();
-            Libro.CargarDatos();
 
             Console.Write("\nIngrese el ID del articulo a Devolver: ");
 
@@ -92,17 +93,16 @@ namespace BibliotecaV1.Services
 
             if (int.TryParse(Console.ReadLine(), out int idBuscado))
             {
-                var articulo = Lista.listaLibros.FirstOrDefault(l => l.ID == idBuscado);
+                var articulo = libros.FirstOrDefault(l => l.ID == idBuscado);
                 if (articulo != null) // si lo encuentra xd
                 {
                     if (articulo.Unidades >= 0) // por si algun gracioso cree que tiene libros infinitos
                     {
                         articulo.Unidades++; //para sumar una unidad!
+                        _repo.GuardarLibros(libros);
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                         Console.WriteLine($"\n¡DEVOLUCION EXITOSA! {articulo.Titulo}");
                         Console.WriteLine($"Nuevo stock disponible: {articulo.Unidades}");
-                       // no olvidar actualizar el json
-                       ActualizarCatalogojson();
                  
                     }
                     else
@@ -126,18 +126,45 @@ namespace BibliotecaV1.Services
         Console.ResetColor();
            }
         } 
-   
-   private void ActualizarCatalogojson()
+
+    public void RegistrarNuevoLibro(string titulo, string autor, int unidades)
         {
-        string ruta = Path.Combine("Data","LibrosGuardados.json");
-        // Opciones para que el JSON se vea ordenado y bonito
-    var opciones = new JsonSerializerOptions { WriteIndented = true };
-    
-    // Convertimos TODA la lista (con las unidades ya restadas) a texto JSON
-    string jsonFinal = JsonSerializer.Serialize(Lista.listaLibros, opciones);
-    
-    // Sobreescribimos el archivo viejo con los datos nuevos
-    File.WriteAllText(ruta, jsonFinal);
+            int nuevoId = 1;
+            if (libros != null && libros.Count > 0)
+            {
+                nuevoId = libros.Max(l => l.ID) + 1;
+            }
+
+            Libro nuevoLibro = new Libro(nuevoId, titulo, autor, unidades);
+            libros.Add(nuevoLibro);
+            _repo.GuardarLibros(libros);
         }
-    }
+        public void MostrarCatalogo()
+        {
+            Console.Clear();
+            Console.WriteLine("=== CATALOGO DE LIBROS ===");
+
+            if (libros.Count == 0)
+            {
+                Console.WriteLine("EPA mi loco acá no hay nada. ");
+                return;
+            }
+            foreach (var libro in libros)
+            {
+                if (libro.Unidades > 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(libro.ToString());
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"{libro.ToString()} [SIN STOCK]");
+                }
+            }
+            Console.ResetColor();
+            Console.WriteLine("\nPresione cualquier tecla para volver...");
+            Console.ReadKey();
+        }
+   }
 }

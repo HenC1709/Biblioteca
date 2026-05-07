@@ -1,7 +1,3 @@
-using System;
-using BibliotecaV1.Logic;
-using BibliotecaV1.Models;
-using BibliotecaV1.Services;
 
 namespace BibliotecaV1.Services
 {
@@ -9,18 +5,33 @@ namespace BibliotecaV1.Services
 {
     public void Buscar(Biblioteca miBiblioteca)
     {
-        Libro.CargarDatos();
-        Console.ForegroundColor = ConsoleColor.DarkBlue;
-        Console.WriteLine("Introduce el nombre del libro a buscar, por favor");
-        string buscar = Console.ReadLine()!;
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("=== BUSCADOR DE LIBROS ===");
+        Console.ResetColor();
         
+        Console.WriteLine("\nIntroduce el nombre del libro a buscar, por favor");
+        string buscar = Console.ReadLine()?.ToLower() ?? "";
 
-        var resultado = Lista.listaLibros.Find(l => l.Titulo.Contains(buscar));
+          // AQUÍ ESTABA EL ERROR: ENTRE LA PC Y LA SILLA ESTA EL JODIDO ERROR 
+         // 1. Debes llamar a miBiblioteca.Libros
+         // 2. Usar .FirstOrDefault para que te devuelva UN libro
+         var resultado =  miBiblioteca.libros.FirstOrDefault(l => l.Titulo.ToLower().Contains(buscar));
 
-        if (resultado != null)
-            Console.WriteLine($"Encontrado: {resultado.Titulo} de {resultado.Autor} Unidades: {resultado.Unidades} ingresado: {resultado.FechaDeIngreso.ToShortDateString()}");
+        if (resultado != null)    
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                // Usamos el ToString() que ya limpiamos en el modelo Libro
+                Console.WriteLine($"\n¡Encontrado!\n{resultado}");
+            }
         else
-            Console.WriteLine("ese libro no se encuentra xd");
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+         Console.WriteLine("ese libro no se encuentra xd");
+            }
+     Console.ResetColor();
+          Console.WriteLine("\nPresiona cualquier tecla para continuar...");
+            Console.ReadKey();
 
     }
 

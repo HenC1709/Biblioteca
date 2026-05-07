@@ -7,7 +7,7 @@ class Program
 {
     static void Main(string[] args)
     {
-
+        Biblioteca miDepo = new Biblioteca(); 
         LoginService login = new LoginService();
         Usuario? usuarioActual = null;
         while (usuarioActual == null)
@@ -23,11 +23,11 @@ class Program
 
      if (usuarioActual.rol == Rol.Admin)
         {
-            Menu.MenuAdmin(usuarioActual);
+            Menu.MenuAdmin(usuarioActual, miDepo);
         }
     else
         {
-            Menu.MenuUsuario(usuarioActual);
+            Menu.MenuUsuario(usuarioActual, miDepo);
         }
     }     
 }
