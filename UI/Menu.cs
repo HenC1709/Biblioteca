@@ -39,11 +39,11 @@ namespace BibliotecaV1.Logic
           break;
 
           case "3":
-          miDepo.PrestarLibro();
+          miDepo.PrestarLibro(usuario.nombre);
           break;
 
           case "4":
-          miDepo.DevolverLibro();
+          miDepo.DevolverLibro(usuario.nombre);
           break;
           
           case "0":
@@ -107,7 +107,7 @@ namespace BibliotecaV1.Logic
 
             case "3":
             Console.WriteLine("Accediendo al sistema...");
-            miDepo.PrestarLibro();
+            miDepo.PrestarLibro(usuario.nombre);
             break;
 
             case "4":
@@ -117,7 +117,7 @@ namespace BibliotecaV1.Logic
 
             case "5":
             Console.WriteLine("Accediendo al sistema...");
-            miDepo.DevolverLibro();
+            miDepo.DevolverLibro(usuario.nombre);
             break;
 
             case "0":

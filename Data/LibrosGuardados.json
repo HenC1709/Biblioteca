@@ -17,7 +17,7 @@
     "ID": 3,
     "Titulo": "Harry Potter",
     "Autor": "J. K. Rowling",
-    "Unidades": 0,
+    "Unidades": 1,
     "FechaDeIngreso": "2026-05-04T20:27:42.2696609-04:00"
   },
   {
@@ -52,7 +52,7 @@
     "ID": 8,
     "Titulo": "Metro 2033",
     "Autor": "Dmitry Glukhovsky.",
-    "Unidades": 2,
+    "Unidades": 1,
     "FechaDeIngreso": "2026-05-05T21:03:53.3782672-04:00"
   },
   {

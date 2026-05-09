@@ -23,7 +23,9 @@ namespace BibliotecaV1.Services
 
     }
 
-    public void PrestarLibro()
+   private TicketManager _ticket = new TicketManager();
+
+    public void PrestarLibro(string usuarioNombre)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -45,6 +47,10 @@ namespace BibliotecaV1.Services
                     {
                         articulo.Unidades--; //para restar una unidad!
                         _repo.GuardarLibros(libros);
+
+                           //Variable de ticket acá
+                           _ticket.GenerarTicketPrestamo(articulo, usuarioNombre);
+
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                         Console.WriteLine($"\n¡ÉXITO! has pedido prestado: {articulo.Titulo}");
 
@@ -78,7 +84,7 @@ namespace BibliotecaV1.Services
            }
         } 
 
-        public void DevolverLibro()
+        public void DevolverLibro(string usuarioNombre)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -100,6 +106,8 @@ namespace BibliotecaV1.Services
                     {
                         articulo.Unidades++; //para sumar una unidad!
                         _repo.GuardarLibros(libros);
+
+                        _ticket.GenerarTicketDevolucion(articulo, usuarioNombre);
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                         Console.WriteLine($"\n¡DEVOLUCION EXITOSA! {articulo.Titulo}");
                         Console.WriteLine($"Nuevo stock disponible: {articulo.Unidades}");
