@@ -2,7 +2,7 @@ using BibliotecaV1.Models;
 
 namespace BibliotecaV1.Services
 {
-    public static class Auth
+    public class Auth
     {
         public static Usuario? UsuarioActual { get; private set; }
 

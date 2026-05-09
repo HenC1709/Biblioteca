@@ -1,0 +1,18 @@
+
+=========================================
+        NUEVO PRESTAMO DETECTADO
+==========================================
+FECHA: 08/05/2026 21:28:00
+USUARIO: Henry
+lIBRO: Date a live set Vol 1-10 
+AUTOR: Koshi Tachibana          
+------------------------------------------
+
+=========================================
+        NUEVO PRESTAMO DETECTADO
+==========================================
+FECHA: 08/05/2026 21:28:18
+USUARIO: Henry
+lIBRO: Harry Potter             
+AUTOR: J. K. Rowling            
+------------------------------------------
