@@ -126,9 +126,6 @@ namespace BibliotecaV1.Services
                 }
             }
 
-            Console.ResetColor();
-            Console.WriteLine("\nPresione cualquier tecla para volver...");
-            Console.ReadKey();
         }
     }
 }

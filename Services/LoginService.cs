@@ -11,13 +11,20 @@ namespace BibliotecaV1.Services
         public Usuario? IniciarSesion()
         {
             Console.Clear();
-            Console.WriteLine(" ==== ¿Tienes cuenta? =======");
-            Console.Write("(S/N): ");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("======================================");
+            Console.WriteLine("     🌸 BIBLIOTECA CENTRAL LOGIN 🌸      ");
+            Console.WriteLine("======================================");
+            Console.ResetColor();
+
+            Console.WriteLine("1. Iniciar Sesión");
+            Console.WriteLine("2. Registro");
+            Console.Write("\nSeleccione una opción: ");
             string respuesta = Console.ReadLine()!.ToUpper();
             var lista = UsuarioServicio.Cargar();
 
             // 🔹 REGISTRO
-            if (respuesta == "")
+            if (respuesta == "2")
             {
                
                 Usuario nuevo = new Usuario();
