@@ -22,7 +22,7 @@ namespace BibliotecaV1.Logic
      Console.WriteLine("2. Lista");
      Console.WriteLine("3. Prestamos. ");
      Console.WriteLine("4. Devolución. ");
-     Console.WriteLine("0. Salir");
+     Console.WriteLine("0. Cerrar sesión");
      Console.ResetColor();
      Console.Write("\nSelecciona una opcion: ");
 
@@ -79,6 +79,7 @@ else
 break;
           
           case "0":
+          Auth.Logout();
           break;
 
           default:
@@ -110,7 +111,7 @@ break;
         Console.WriteLine("3. Prestamos. ");
         Console.WriteLine("4. Lista");
         Console.WriteLine("5. Devolución. ");
-        Console.WriteLine("0. Salir");
+        Console.WriteLine("0. cerrar sesión");
         Console.ResetColor();
         Console.Write("\nSelecciona una opción: "); 
 
@@ -161,7 +162,7 @@ break;
             Console.WriteLine("Accediendo al sistema...");
             miDepo.MostrarCatalogo();
             break;
-            
+
 case "5":
 Console.Clear();
 Console.Write("Ingrese ID del libro a devolver: ");
@@ -183,7 +184,9 @@ else
 break;
 
             case "0":
+            Auth.Logout();
             break;
+
 
             default:
             Console.WriteLine("Opcion no valida. ");

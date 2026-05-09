@@ -28,3 +28,19 @@ AUTOR: Dmitry Glukhovsky.
  *** POR FAVOR DEVOLVER A TIEMPO ***
 
 
+
+==========================================
+        NUEVO PRESTAMO DETECTADO
+==========================================
+TICKET: PRE-6395
+FECHA: 08/05/2026 22:14:07
+USUARIO: Henry
+
+lIBRO: Date a live set Vol 1-10 
+AUTOR: Koshi Tachibana          
+
+STOCK ACTUAL: 0
+------------------------------------------
+ *** POR FAVOR DEVOLVER A TIEMPO ***
+
+

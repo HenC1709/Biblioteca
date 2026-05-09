@@ -29,5 +29,9 @@ class Program
         {
             Menu.MenuUsuario(usuarioActual, miDepo);
         }
+
+        Auth.Logout();
+
+        Console.WriteLine("Sesión cerrada correctamente");
     }     
 }

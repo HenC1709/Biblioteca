@@ -17,7 +17,7 @@ namespace BibliotecaV1.Services
             var lista = UsuarioServicio.Cargar();
 
             // 🔹 REGISTRO
-            if (respuesta == "N")
+            if (respuesta == "")
             {
                
                 Usuario nuevo = new Usuario();
