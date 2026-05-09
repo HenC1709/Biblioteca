@@ -4,175 +4,131 @@ using BibliotecaV1.Logic;
 
 namespace BibliotecaV1.Services
 {
-  public class Biblioteca
+    public class Biblioteca
     {
-
         private readonly LibroRepository _repo = new LibroRepository();
-        public List<Libro> libros { get; private set; }
+        private readonly TicketManager _ticket = new TicketManager();
+
+        private List<Libro> _libros;
 
         public Biblioteca()
         {
-            libros = _repo.LeerLibros();
+            _libros = _repo.LeerLibros();
         }
 
-    public void AgregarLibro(Libro nuevoLibro)
-    {
-       libros.Add(nuevoLibro);
-       _repo.GuardarLibros(libros);
-    Console.WriteLine($"libro '{nuevoLibro.Titulo}' agregado al sistema");
+        // =========================
+        // OBTENER LIBROS
+        // =========================
 
-    }
-
-   private TicketManager _ticket = new TicketManager();
-
-    public void PrestarLibro(string usuarioNombre)
+        public List<Libro> ObtenerLibros()
         {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("======================");
-            Console.WriteLine(" SISTEMA DE PRÉSTAMOS ");
-            Console.WriteLine("======================");
-            Console.ResetColor();
+            return _libros;
+        }
+         // =========================
+        // AGREGAR LIBRO
+        // =========================
 
-            Console.Write("\nIngrese el ID del articulo a pedir: ");
-
-            // verificamos que el user escriba un numero
-
-            if (int.TryParse(Console.ReadLine(), out int idBuscado))
-            {
-                var articulo =  libros.FirstOrDefault(l => l.ID == idBuscado);
-                if (articulo != null) // si lo encuentra xd
-                {
-                    if (articulo.Unidades > 0) // por si algun gracioso cree que tiene libros infinitos
-                    {
-                        articulo.Unidades--; //para restar una unidad!
-                        _repo.GuardarLibros(libros);
-
-                           //Variable de ticket acá
-                           _ticket.GenerarTicketPrestamo(articulo, usuarioNombre);
-
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.WriteLine($"\n¡ÉXITO! has pedido prestado: {articulo.Titulo}");
-
-                        // detalle visual: si queda 1 se pone en amarillo!
-                        if (articulo.Unidades == 1)
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine($"Unidades en bodega son: {articulo.Unidades}");
-                        Console.ResetColor();
-                       
-                 
-                    }
-                    else
-                    {
-                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\nLo siento, no quedan unidades disponibles de este artículo.");
-                Console.ResetColor();
-                    }
-                }
-                else
-                {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"\nNo existe ningún artículo con el ID: {idBuscado} xd");
-            Console.ResetColor();
-                }
-            }
-            else
-            {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("\nPor favor, ingresa un ID numérico válido.");
-        Console.ResetColor();
-           }
-        } 
-
-        public void DevolverLibro(string usuarioNombre)
+        public void AgregarLibro(Libro nuevoLibro)
         {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("======================");
-            Console.WriteLine(" SISTEMA DE DEVOLUCIÓN ");
-            Console.WriteLine("======================");
-            Console.ResetColor();
+            _libros.Add(nuevoLibro);
+            _repo.GuardarLibros(_libros);
+        }
 
-            Console.Write("\nIngrese el ID del articulo a Devolver: ");
-
-            // verificamos que el user escriba un numero
-
-            if (int.TryParse(Console.ReadLine(), out int idBuscado))
-            {
-                var articulo = libros.FirstOrDefault(l => l.ID == idBuscado);
-                if (articulo != null) // si lo encuentra xd
-                {
-                    if (articulo.Unidades >= 0) // por si algun gracioso cree que tiene libros infinitos
-                    {
-                        articulo.Unidades++; //para sumar una unidad!
-                        _repo.GuardarLibros(libros);
-
-                        _ticket.GenerarTicketDevolucion(articulo, usuarioNombre);
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.WriteLine($"\n¡DEVOLUCION EXITOSA! {articulo.Titulo}");
-                        Console.WriteLine($"Nuevo stock disponible: {articulo.Unidades}");
-                 
-                    }
-                    else
-                    {
-                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\nLo siento, no encontramos el registro con el ID {idBuscado}");
-                Console.ResetColor();
-                    }
-                }
-                else
-                {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"\nNo existe ningún artículo con el ID: {idBuscado} xd");
-            Console.ResetColor();
-                }
-            }
-            else
-            {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("\nPor favor, ingresa un ID numérico válido.");
-        Console.ResetColor();
-           }
-        } 
-
-    public void RegistrarNuevoLibro(string titulo, string autor, int unidades)
+        public void RegistrarNuevoLibro(string titulo, string autor, int unidades)
         {
             int nuevoId = 1;
-            if (libros != null && libros.Count > 0)
+
+            if (_libros.Count > 0)
             {
-                nuevoId = libros.Max(l => l.ID) + 1;
+                nuevoId = _libros.Max(l => l.ID) + 1;
             }
 
             Libro nuevoLibro = new Libro(nuevoId, titulo, autor, unidades);
-            libros.Add(nuevoLibro);
-            _repo.GuardarLibros(libros);
+
+            AgregarLibro(nuevoLibro);
         }
+
+        // =========================
+        // PRESTAR LIBRO
+        // =========================
+
+        public string PrestarLibro(int idLibro, string usuarioNombre)
+        {
+            var libro = _libros.FirstOrDefault(l => l.ID == idLibro);
+
+            if (libro == null)
+            {
+                return "Libro no encontrado.";
+            }
+
+            if (libro.Unidades <= 0)
+            {
+                return "No hay stock disponible.";
+            }
+
+            libro.Unidades--;
+
+            _repo.GuardarLibros(_libros);
+
+            _ticket.GenerarTicketPrestamo(libro, usuarioNombre);
+
+            return $"Préstamo exitoso: {libro.Titulo}";
+        }
+
+        // =========================
+        // DEVOLVER LIBRO
+        // =========================
+
+        public string DevolverLibro(int idLibro, string usuarioNombre)
+        {
+            var libro = _libros.FirstOrDefault(l => l.ID == idLibro);
+
+            if (libro == null)
+            {
+                return "Libro no encontrado.";
+            }
+
+            libro.Unidades++;
+
+            _repo.GuardarLibros(_libros);
+
+            _ticket.GenerarTicketDevolucion(libro, usuarioNombre);
+
+            return $"Devolución exitosa: {libro.Titulo}";
+        }
+
+        // =========================
+        // MOSTRAR CATÁLOGO
+        // =========================
+
         public void MostrarCatalogo()
         {
             Console.Clear();
             Console.WriteLine("=== CATALOGO DE LIBROS ===");
 
-            if (libros.Count == 0)
+            if (_libros.Count == 0)
             {
-                Console.WriteLine("EPA mi loco acá no hay nada. ");
+                Console.WriteLine("EPA mi loco acá no hay nada.");
                 return;
             }
-            foreach (var libro in libros)
+
+            foreach (var libro in _libros)
             {
                 if (libro.Unidades > 0)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine(libro.ToString());
+                    Console.WriteLine(libro);
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"{libro.ToString()} [SIN STOCK]");
+                    Console.WriteLine($"{libro} [SIN STOCK]");
                 }
             }
+
             Console.ResetColor();
             Console.WriteLine("\nPresione cualquier tecla para volver...");
             Console.ReadKey();
         }
-   }
+    }
 }

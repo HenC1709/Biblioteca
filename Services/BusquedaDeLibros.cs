@@ -16,7 +16,9 @@ namespace BibliotecaV1.Services
           // AQUÍ ESTABA EL ERROR: ENTRE LA PC Y LA SILLA ESTA EL JODIDO ERROR 
          // 1. Debes llamar a miBiblioteca.Libros
          // 2. Usar .FirstOrDefault para que te devuelva UN libro
-         var resultado =  miBiblioteca.libros.FirstOrDefault(l => l.Titulo.ToLower().Contains(buscar));
+         var resultado = miBiblioteca
+    .ObtenerLibros()
+    .FirstOrDefault(l => l.Titulo.ToLower().Contains(buscar));
 
         if (resultado != null)    
             {

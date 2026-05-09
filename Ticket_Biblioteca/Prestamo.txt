@@ -16,3 +16,15 @@ USUARIO: Henry
 lIBRO: Harry Potter             
 AUTOR: J. K. Rowling            
 ------------------------------------------
+
+==========================================
+        NUEVO PRESTAMO DETECTADO
+==========================================
+FECHA: 08/05/2026 22:05:59
+USUARIO: Henry
+lIBRO: Metro 2035               
+AUTOR: Dmitry Glukhovsky.       
+------------------------------------------
+ *** POR FAVOR DEVOLVER A TIEMPO ***
+
+

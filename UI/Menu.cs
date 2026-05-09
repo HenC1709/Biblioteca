@@ -39,12 +39,44 @@ namespace BibliotecaV1.Logic
           break;
 
           case "3":
-          miDepo.PrestarLibro(usuario.nombre);
-          break;
+        Console.Clear();
+Console.Write("Ingrese ID del libro: ");
+
+if (int.TryParse(Console.ReadLine(), out int idPrestamo))
+{
+    string resultado = miDepo.PrestarLibro(idPrestamo, usuario.nombre);
+
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine(resultado);
+    Console.ResetColor();
+}
+else
+{
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("ID inválido.");
+    Console.ResetColor();
+}
+break;
 
           case "4":
-          miDepo.DevolverLibro(usuario.nombre);
-          break;
+Console.Clear();
+Console.Write("Ingrese ID del libro a devolver: ");
+
+if (int.TryParse(Console.ReadLine(), out int idDevolucion))
+{
+    string resultado = miDepo.DevolverLibro(idDevolucion, usuario.nombre);
+
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine(resultado);
+    Console.ResetColor();
+}
+else
+{
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("ID inválido.");
+    Console.ResetColor();
+}
+break;
           
           case "0":
           break;
@@ -105,20 +137,50 @@ namespace BibliotecaV1.Logic
                   }
             break;
 
-            case "3":
-            Console.WriteLine("Accediendo al sistema...");
-            miDepo.PrestarLibro(usuario.nombre);
-            break;
+          case "3":
+Console.Clear();
+Console.Write("Ingrese ID del libro: ");
+
+if (int.TryParse(Console.ReadLine(), out int idPrestamo))
+{
+    string resultado = miDepo.PrestarLibro(idPrestamo, usuario.nombre);
+
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine(resultado);
+    Console.ResetColor();
+}
+else
+{
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("ID inválido.");
+    Console.ResetColor();
+}
+break;
 
             case "4":
             Console.WriteLine("Accediendo al sistema...");
             miDepo.MostrarCatalogo();
             break;
+            
+case "5":
+Console.Clear();
+Console.Write("Ingrese ID del libro a devolver: ");
 
-            case "5":
-            Console.WriteLine("Accediendo al sistema...");
-            miDepo.DevolverLibro(usuario.nombre);
-            break;
+if (int.TryParse(Console.ReadLine(), out int idDevolucion))
+{
+    string resultado = miDepo.DevolverLibro(idDevolucion, usuario.nombre);
+
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine(resultado);
+    Console.ResetColor();
+}
+else
+{
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("ID inválido.");
+    Console.ResetColor();
+}
+break;
 
             case "0":
             break;

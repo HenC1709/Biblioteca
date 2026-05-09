@@ -54,7 +54,9 @@ USUARIO: {usuario}
 lIBRO: {libro.Titulo.PadRight(25)}
 AUTOR: {libro.Autor.PadRight(25)}
 ------------------------------------------
- ***GRACIAS POR USAR NUESTRO SERVICIO*** <3   
+ ***GRACIAS POR USAR NUESTRO SERVICIO*** <3
+
+ 
 ";
 
   File.AppendAllText(nombreArchivo, contenido);
