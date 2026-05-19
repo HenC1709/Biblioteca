@@ -122,8 +122,7 @@ namespace BibliotecaV1.Services
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"{libro} [SIN STOCK]");
+                    ConsoleHelper.Error($"{libro} [SIN STOCK]");
                 }
             }
 

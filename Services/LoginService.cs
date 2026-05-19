@@ -1,4 +1,5 @@
 using BibliotecaV1.Models;
+using BibliotecaV1.Helpers;
 using System.Linq;
 using System.Data.Common;
 
@@ -11,12 +12,7 @@ namespace BibliotecaV1.Services
         public Usuario? IniciarSesion()
         {
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("======================================");
-            Console.WriteLine("     🌸 BIBLIOTECA CENTRAL LOGIN 🌸      ");
-            Console.WriteLine("======================================");
-            Console.ResetColor();
-
+            ConsoleHelper.Tiltte(" 🌸 BIBLIOTECA LOGIN 🌸 ");
             Console.WriteLine("1. Iniciar Sesión");
             Console.WriteLine("2. Registro");
             Console.Write("\nSeleccione una opción: ");
@@ -37,7 +33,7 @@ namespace BibliotecaV1.Services
 
                 while (!SoloNumeros(id))
                 {
-                    Console.WriteLine("ID Invalida (4 numeros)");
+                    ConsoleHelper.Error("ID Invalida (4 numeros)");
                     id = Console.ReadLine()!;
                 }
                 nuevo.id = id;
@@ -45,14 +41,14 @@ namespace BibliotecaV1.Services
                 lista.Add(nuevo);
                 UsuarioServicio.Guardar(lista);
 
-                Console.WriteLine("Usuario registrado correctamente!");
+                ConsoleHelper.Success("Usuario registrado correctamente!");
                 Console.ReadKey();
                 return null;
             }
 
             // 🔹 LOGIN
             Console.Clear();
-            Console.WriteLine("=== LOGIN ===");
+            ConsoleHelper.Tiltte("LOGIN");
 
             Console.Write("Nombre: ");
             string nombre = Console.ReadLine()!;
@@ -67,12 +63,12 @@ namespace BibliotecaV1.Services
 
             if (user != null)
             {
-                Console.WriteLine($"Bienvenido {user.nombre} ROL: {user.rol} 😎 ");
+                ConsoleHelper.Success($"Bienvenido {user.nombre} ROL: {user.rol} 😎 ");
                 Console.ReadKey();
                 return user;
             }
 
-            Console.WriteLine("Usuario o ID incorrecto");
+            ConsoleHelper.Error("Usuario o ID incorrecto");
             Console.ReadKey();
             return null;
         }

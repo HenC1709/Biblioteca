@@ -19,7 +19,7 @@ class Program
 
         // Guardamos Usuario Actual
         Auth.Login(usuarioActual);
-        Console.WriteLine($"Sesión iniciada como: {usuarioActual.nombre}");
+        ConsoleHelper.Info($"Sesión iniciada como: {usuarioActual.nombre}");
         System.Threading.Thread.Sleep(100);
      //Molde de nuevo Menu!
        Menu.MostrarMenu(usuarioActual, miDepo);

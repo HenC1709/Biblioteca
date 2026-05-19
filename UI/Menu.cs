@@ -16,14 +16,11 @@ namespace BibliotecaV1.Logic
           do
             {
                 Console.Clear();
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("==== SISTEMA BIBLIOTECA ====");
+                ConsoleHelper.Tiltte("SISTEMA BIBLIOTECA");
                 Console.WriteLine($"Usuario: {usuario.nombre}");
                 Console.WriteLine($"Rol: {usuario.rol}");
 
-                Console.ResetColor();
-
-                Console.WriteLine("1. Busccar Libro");
+                Console.WriteLine("1. Buscar Libro");
                 Console.WriteLine("2. Ver Catalogo");
                 Console.WriteLine("3. Prestar Libro");
                 Console.WriteLine("4. Devolver Libro");

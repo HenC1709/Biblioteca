@@ -2,15 +2,14 @@ using BibliotecaV1.Helpers;
 namespace BibliotecaV1.Services
 {
     class BusquedaDeLibros
-{
+   {
     public void Buscar(Biblioteca miBiblioteca)
-    {
+       {
         Console.Clear();
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine("=== BUSCADOR DE LIBROS ===");
+        ConsoleHelper.Tiltte("BUSCADOR DE LIBROS");
         Console.ResetColor();
         
-        Console.WriteLine("\nIntroduce el nombre del libro a buscar, por favor");
+        ConsoleHelper.Info("\nIntroduce el nombre del libro a buscar, por favor");
         string buscar = Console.ReadLine()?.ToLower() ?? "";
 
           // AQUÍ ESTABA EL ERROR: ENTRE LA PC Y LA SILLA ESTA EL JODIDO ERROR 
@@ -21,20 +20,15 @@ namespace BibliotecaV1.Services
     .FirstOrDefault(l => l.Titulo.ToLower().Contains(buscar));
 
         if (resultado != null)    
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                // Usamos el ToString() que ya limpiamos en el modelo Libro
-                Console.WriteLine($"\n¡Encontrado!\n{resultado}");
+            {        
+           // Usamos el ToString() que ya limpiamos en el modelo Libro
+          ConsoleHelper.Success($"\n¡Encontrado!\n{resultado}");
             }
         else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-         Console.WriteLine("ese libro no se encuentra xd");
+        ConsoleHelper.Error("ese libro no se encuentra xd");
             }
-     ConsoleHelper.Pause();
-
+       }
     }
-
-}
 }
 

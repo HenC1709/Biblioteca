@@ -20,6 +20,20 @@ namespace BibliotecaV1.Helpers
             Console.WriteLine(mensaje);
             Console.ResetColor();
         }
+        public static void Info(string mensaje)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(mensaje);
+            Console.ResetColor();
+        }
+        public static void Tiltte(string mensaje)
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("========================");
+            Console.WriteLine(mensaje);
+            Console.WriteLine("========================");
+            Console.ResetColor();
+        }
         public static void Pause()
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;

@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.IO;
+using BibliotecaV1.Helpers;
 using BibliotecaV1.Models;
 
 namespace BibliotecaV1.Logic
@@ -43,7 +44,7 @@ STOCK ACTUAL: {libro.Unidades}
 
 File.AppendAllText(nombreArchivo, contenido);
 Console.ForegroundColor = ConsoleColor.Green;
-Console.WriteLine($"\n[TICKET] Comprobante de prestamo creado: {nombreArchivo} ");
+ConsoleHelper.Success($"\n[TICKET] Comprobante de prestamo creado: {nombreArchivo} ");
 Console.ResetColor();
         }
 
@@ -75,7 +76,7 @@ NUEVO STOCK: {libro.Unidades}
 
   File.AppendAllText(nombreArchivo, contenido);
   Console.ForegroundColor = ConsoleColor.Green;
-  Console.WriteLine($"\n[TICKET] Comprobante de devolución creado.");
+  ConsoleHelper.Success($"\n[TICKET] Comprobante de devolución creado.");
   Console.ResetColor();
         }
     }
