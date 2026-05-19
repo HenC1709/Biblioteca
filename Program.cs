@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using BibliotecaV1.Helpers;
 using BibliotecaV1.Logic;
 using BibliotecaV1.Models;
@@ -8,7 +9,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        Biblioteca miDepo = new Biblioteca(); 
+        Biblioteca miDepo = new Biblioteca();
         LoginService login = new LoginService();
         Usuario? usuarioActual = null;
         while (usuarioActual == null)
@@ -21,15 +22,8 @@ class Program
         Console.WriteLine($"Sesión iniciada como: {usuarioActual.nombre}");
         System.Threading.Thread.Sleep(100);
      //Molde de nuevo Menu!
-
-     if (usuarioActual.rol == Rol.Admin)
-        {
-            Menu.MenuAdmin(usuarioActual, miDepo);
-        }
-    else
-        {
-            Menu.MenuUsuario(usuarioActual, miDepo);
-        }
+       Menu.MostrarMenu(usuarioActual, miDepo);
+         
 
         Auth.Logout();
 
