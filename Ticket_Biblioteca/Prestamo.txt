@@ -76,3 +76,35 @@ STOCK ACTUAL: 1
  *** POR FAVOR DEVOLVER A TIEMPO ***
 
 
+
+==========================================
+        NUEVO PRESTAMO DETECTADO
+==========================================
+TICKET: PRE-3829
+FECHA: 18/05/2026 20:02:46
+USUARIO: Henry
+
+lIBRO: Metro 2033               
+AUTOR: Dmitry Glukhovsky.       
+
+STOCK ACTUAL: 0
+------------------------------------------
+ *** POR FAVOR DEVOLVER A TIEMPO ***
+
+
+
+==========================================
+        NUEVO PRESTAMO DETECTADO
+==========================================
+TICKET: PRE-7595
+FECHA: 18/05/2026 20:28:41
+USUARIO: Henry
+
+lIBRO: Danmachi Vol 1           
+AUTOR: Fujino Omori             
+
+STOCK ACTUAL: 1
+------------------------------------------
+ *** POR FAVOR DEVOLVER A TIEMPO ***
+
+

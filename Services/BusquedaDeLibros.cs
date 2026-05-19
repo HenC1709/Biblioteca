@@ -1,4 +1,4 @@
-
+using BibliotecaV1.Helpers;
 namespace BibliotecaV1.Services
 {
     class BusquedaDeLibros
@@ -31,9 +31,7 @@ namespace BibliotecaV1.Services
                 Console.ForegroundColor = ConsoleColor.Red;
          Console.WriteLine("ese libro no se encuentra xd");
             }
-     Console.ResetColor();
-          Console.WriteLine("\nPresiona cualquier tecla para continuar...");
-            Console.ReadKey();
+     ConsoleHelper.Pause();
 
     }
 

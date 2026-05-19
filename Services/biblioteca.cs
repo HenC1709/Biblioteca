@@ -1,6 +1,7 @@
 using BibliotecaV1.Data;
 using BibliotecaV1.Models;
 using BibliotecaV1.Logic;
+using BibliotecaV1.Helpers;
 
 namespace BibliotecaV1.Services
 {
@@ -63,7 +64,7 @@ namespace BibliotecaV1.Services
 
             if (libro.Unidades <= 0)
             {
-                return "No hay stock disponible.";
+               return "No hay stock disponible.";
             }
 
             libro.Unidades--;
@@ -108,7 +109,7 @@ namespace BibliotecaV1.Services
 
             if (_libros.Count == 0)
             {
-                Console.WriteLine("EPA mi loco acá no hay nada.");
+               ConsoleHelper.Warning("No hay Libros registrados. ");
                 return;
             }
 

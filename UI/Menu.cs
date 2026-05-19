@@ -1,4 +1,5 @@
 using System;
+using BibliotecaV1.Helpers;
 using BibliotecaV1.Models;
 using System.Linq;
 using BibliotecaV1.Services;
@@ -40,59 +41,40 @@ namespace BibliotecaV1.Logic
 
           case "3":
         Console.Clear();
-Console.Write("Ingrese ID del libro: ");
-
-if (int.TryParse(Console.ReadLine(), out int idPrestamo))
-{
-    string resultado = miDepo.PrestarLibro(idPrestamo, usuario.nombre);
-
-    Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine(resultado);
-    Console.ResetColor();
-}
-else
-{
-    Console.ForegroundColor = ConsoleColor.Red;
-    Console.WriteLine("ID inválido.");
-    Console.ResetColor();
-}
-break;
+        int idPrestamo = InputHelper.LeerEntero("Ingrese ID del Libro: ");
+       string ResultadoPrestamo =
+       miDepo.PrestarLibro(idPrestamo, usuario.nombre);
+       if (ResultadoPrestamo.Contains("exitoso"))
+           {
+          ConsoleHelper.Success(ResultadoPrestamo);                  
+           }
+        else
+           {
+           ConsoleHelper.Warning(ResultadoPrestamo);                  
+           } 
+        break;
 
           case "4":
-Console.Clear();
-Console.Write("Ingrese ID del libro a devolver: ");
-
-if (int.TryParse(Console.ReadLine(), out int idDevolucion))
-{
-    string resultado = miDepo.DevolverLibro(idDevolucion, usuario.nombre);
-
-    Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine(resultado);
-    Console.ResetColor();
-}
-else
-{
-    Console.ForegroundColor = ConsoleColor.Red;
-    Console.WriteLine("ID inválido.");
-    Console.ResetColor();
-}
-break;
+        Console.Clear();
+        int idDevolucion = InputHelper.LeerEntero("Ingrese ID del Libro: ");
+        string ResultadoDevolucion =
+        miDepo.DevolverLibro(idDevolucion, usuario.nombre);
+        ConsoleHelper.Success(ResultadoDevolucion);
+        break;
           
           case "0":
           Auth.Logout();
           break;
 
           default:
-          Console.WriteLine("Opcion no valida! ");
+          ConsoleHelper.Warning("Opcion no valida! ");
           break;
                   
         }
         if (opción !="0")
-                {
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("\nPresiona cualquier tecla para continuar...");
-                Console.ReadKey(); 
-                }
+         {
+           ConsoleHelper.Pause(); 
+         }
       } 
     while (opción != "0");
    }
@@ -134,54 +116,37 @@ break;
                   }
                   else
                   {
-                     Console.WriteLine("Error: las unidades deben ser en numero. ");
+                     ConsoleHelper.Error("Error: las unidades deben ser en numero. ");
                   }
             break;
-
-          case "3":
-Console.Clear();
-Console.Write("Ingrese ID del libro: ");
-
-if (int.TryParse(Console.ReadLine(), out int idPrestamo))
-{
-    string resultado = miDepo.PrestarLibro(idPrestamo, usuario.nombre);
-
-    Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine(resultado);
-    Console.ResetColor();
-}
-else
-{
-    Console.ForegroundColor = ConsoleColor.Red;
-    Console.WriteLine("ID inválido.");
-    Console.ResetColor();
-}
-break;
+ 
+            case "3":
+            Console.Clear();
+           int idPrestamo = InputHelper.LeerEntero("Ingrese ID del Libro: ");
+          string ResultadoPrestamo =
+          miDepo.PrestarLibro(idPrestamo, usuario.nombre);
+           if (ResultadoPrestamo.Contains("exitoso"))
+           {
+          ConsoleHelper.Success(ResultadoPrestamo);                  
+           }
+         else
+           {
+           ConsoleHelper.Error(ResultadoPrestamo);                  
+           } 
+          break;
 
             case "4":
             Console.WriteLine("Accediendo al sistema...");
             miDepo.MostrarCatalogo();
             break;
 
-case "5":
-Console.Clear();
-Console.Write("Ingrese ID del libro a devolver: ");
-
-if (int.TryParse(Console.ReadLine(), out int idDevolucion))
-{
-    string resultado = miDepo.DevolverLibro(idDevolucion, usuario.nombre);
-
-    Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine(resultado);
-    Console.ResetColor();
-}
-else
-{
-    Console.ForegroundColor = ConsoleColor.Red;
-    Console.WriteLine("ID inválido.");
-    Console.ResetColor();
-}
-break;
+        case "5":
+        Console.Clear();
+        int idDevolucion = InputHelper.LeerEntero("Ingrese ID del Libro: ");
+        string ResultadoDevolucion =
+        miDepo.DevolverLibro(idDevolucion, usuario.nombre);
+        ConsoleHelper.Success(ResultadoDevolucion);
+        break;
 
             case "0":
             Auth.Logout();
@@ -189,14 +154,12 @@ break;
 
 
             default:
-            Console.WriteLine("Opcion no valida. ");
+            ConsoleHelper.Warning("Opcion no valida. ");
             break;
            }
            if (opcion != "0")
                 {
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.WriteLine("\nPresiona cualquier tecla para continuar...");
-                Console.ReadKey();
+                ConsoleHelper.Pause();
                 }
                 
         } while (opcion != "0");

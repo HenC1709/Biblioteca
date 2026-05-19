@@ -81,3 +81,20 @@ NUEVO STOCK: 2
  ***GRACIAS POR USAR NUESTRO SERVICIO*** <3
 
 
+ 
+
+==========================================
+         NUEVA DEVOLUCIÓN 
+==========================================
+TICKET: DEV-8972
+FECHA: 18/05/2026 20:03:00
+USUARIO: Henry
+
+lIBRO: Metro 2033               
+AUTOR: Dmitry Glukhovsky.       
+
+NUEVO STOCK: 1
+------------------------------------------
+ ***GRACIAS POR USAR NUESTRO SERVICIO*** <3
+
+
