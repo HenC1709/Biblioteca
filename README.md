@@ -1,87 +1,77 @@
-# BibliotecaV1 📚
+# 📚 BibliotecaV1
 
-Sistema de gestión de biblioteca desarrollado en C# con persistencia JSON.
+## 📝 Resumen
 
-Permite:
-- Gestión de catálogo de libros
-- Registro de usuarios
-- Sistema de préstamos y devoluciones
-- Generación de tickets TXT
-- Login con roles (Usuario/Admin)
-- Persistencia local usando JSON
+**BibliotecaV1** es un proyecto de consola desarrollado en **C#** enfocado en la gestión básica y eficiente de una biblioteca. 
+
+El sistema está diseñado para ofrecer una experiencia intuitiva a través de la terminal, dividiendo las capacidades según el rol del usuario y asegurando que la información no se pierda al cerrar el programa.
+
+Actualmente, el proyecto se encuentra en una etapa de refactorización y mejora arquitectónica para preparar futuras versiones más avanzadas.
 
 ---
 
-# Tecnologías usadas
+## 🚀 Funcionalidades Actuales
 
-- C#
-- .NET
-- JSON Serialization
-- Programación Orientada a Objetos (POO)
+### 👥 Gestión de Usuarios y Autenticación
+- **Registro de usuarios:** Creación de nuevas cuentas en el sistema.
+- **Inicio de sesión seguro:** Validación de credenciales para acceder.
+- **Control de Roles:**
+  - **Usuario:** Acceso a búsquedas, préstamos y devoluciones.
+  - **Administrador (Admin):** Control total sobre la gestión de libros y reportes.
+- **Robustez del sistema:** 
+  - Validación estricta de ID numérica.
+  - Prevención de usuarios duplicados para evitar conflictos en la base de datos.
+
+### 📖 Gestión de la Biblioteca
+- **Control de Libros:** Alta, baja y modificación del catálogo (exclusivo de Admin).
+- **Préstamos y Devoluciones:** Flujo completo para que los usuarios soliciten y entreguen libros.
+- **Generación Automática de Tickets:** Emisión de un comprobante físico/digital en texto cada vez que se realiza una transacción.
+- **Persistencia de Datos:** Almacenamiento local automático en formato **JSON** para conservar el estado de los libros y usuarios.
 
 ---
 
-# Características principales
+## 🛠️ Tecnologías Usadas
 
-## Usuarios
-- Registro de usuarios
-- Inicio de sesión
-- Roles:
-  - Usuario
-  - Admin
+- **Lenguaje:** C#
+- **Ecosistema:** .NET (Consola)
+- **Serialización:** `System.Text.Json` para la persistencia de datos.
 
-## Libros
-- Agregar libros
-- Buscar libros
-- Ver catálogo
-- Control de stock
+---
 
-## Préstamos
-- Prestar libros
-- Devolver libros
-- Actualización automática del stock
-
-## Tickets
-Generación automática de:
-- Tickets de préstamo
-- Tickets de devolución 
-
-## Ejecutar
-- dotnet build
-- dotnet run
-
-Guardados en:
+## 📂 Estructura del Proyecto
 
 ```plaintext
-Ticket_Biblioteca/
-
-***
 BibliotecaV1/
 │
-├── Data/
-│   └── LibroRepository.cs
+├── Data/                          # Capa de almacenamiento y persistencia
+│   ├── LibroRepository.cs
+│   ├── UsuarioRepository.cs
+│   ├── LibrosGuardados.json       # Base de datos local de libros
+│   └── Usuarios.json              # Base de datos local de usuarios
 │
-├── Helpers/
+├── Helpers/                       # Herramientas de utilidad general
 │   ├── ConsoleHelper.cs
 │   └── InputHelper.cs
 │
-├── Logic/
+├── Logic/                         # Flujo principal de la aplicación
 │   ├── Menu.cs
 │   └── TicketManager.cs
 │
-├── Models/
+├── Models/                        # Clases de entidad (Modelos de datos)
 │   ├── Libro.cs
-│   └── Usuario.cs
+│   ├── Usuario.cs
+│   └── Prestamo.cs                # (En preparación para futuras actualizaciones)
 │
-├── Services/
+├── Services/                      # Lógica de negocio y servicios del sistema
 │   ├── Auth.cs
 │   ├── Biblioteca.cs
 │   ├── BusquedaDeLibros.cs
 │   ├── LoginService.cs
 │   └── UsuarioServicio.cs
 │
-├── Ticket_Biblioteca/
+├── Ticket_Biblioteca/             # Carpeta de salida
+│   └── (Tickets generados automáticamente en .txt)
 │
-├── Program.cs
+├── .gitignore
+├── Program.cs                     # Punto de entrada de la aplicación
 └── BibliotecaV1.csproj
-
