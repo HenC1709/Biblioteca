@@ -1,13 +1,16 @@
 using BibliotecaV1.Models;
 using BibliotecaV1.Helpers;
 using System.Linq;
-using System.Data.Common;
+using BibliotecaV1.Data;
 
 
 namespace BibliotecaV1.Services
 {
     public class LoginService
     {
+        private readonly UsuarioRepository _repo = new UsuarioRepository();
+
+        private readonly UsuarioServicio _usuarioServicio = new UsuarioServicio();
         // La ruta hacia tu carpeta de datos protegida  public class LoginService
         public Usuario? IniciarSesion()
         {
@@ -16,7 +19,7 @@ namespace BibliotecaV1.Services
             Console.WriteLine("1. Iniciar Sesión");
             Console.WriteLine("2. Registro");
             string respuesta = InputHelper.LeerTexto("\nSeleccione una opción: ").ToUpper();
-            var lista = UsuarioServicio.Cargar();
+            var lista = _repo.LeerUsuarios();
 
             // 🔹 REGISTRO
             if (respuesta == "2")
@@ -33,7 +36,7 @@ namespace BibliotecaV1.Services
                     ConsoleHelper.Warning("ID Invalida (4 numeros): ");
                     id = InputHelper.LeerTexto("ID (4 numeros): ");
                 }
-                if (UsuarioServicio.ExisteUsuario(lista, nuevo.Nombre))
+                if (_usuarioServicio.ExisteUsuario(nuevo.Nombre))
                 {
                     ConsoleHelper.Warning("Ese usuario ya existe.");
                     ConsoleHelper.Pause();
@@ -42,7 +45,7 @@ namespace BibliotecaV1.Services
                 nuevo.Id = id;
 
                 lista.Add(nuevo);
-                UsuarioServicio.Guardar(lista);
+                _repo.GuardarUsuario(lista);
 
                 ConsoleHelper.Success("Usuario registrado correctamente!");
                 ConsoleHelper.Pause();
@@ -57,7 +60,7 @@ namespace BibliotecaV1.Services
 
             string idlogin = InputHelper.LeerTexto("ID: ");
 
-            var listaUsuarios = UsuarioServicio.Cargar();
+            var listaUsuarios = _repo.LeerUsuarios();
 
             var user = listaUsuarios
                 .FirstOrDefault(u => u.Nombre.ToLower() == nombre.ToLower() && u.Id == idlogin);

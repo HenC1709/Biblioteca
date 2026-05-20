@@ -1,7 +1,6 @@
 using System;
 using System.Data;
 using System.IO;
-using System.Runtime.CompilerServices;
 using BibliotecaV1.Helpers;
 using BibliotecaV1.Models;
 
@@ -19,46 +18,22 @@ namespace BibliotecaV1.Logic
 public void GenerarTicketPrestamo(Libro libro, string usuario)
 { 
 string ticketId = CrearTicketId("PRE");
-string contenido = $@"
-==========================================
-        NUEVO PRESTAMO DETECTADO
-==========================================
-TICKET: {ticketId}
-FECHA: {DateTime.Now:dd/MM/yyyy HH:mm:ss}
-USUARIO: {usuario}
-
-LIBRO: {libro.Titulo.PadRight(25)}
-AUTOR: {libro.Autor.PadRight(25)}
-
-STOCK ACTUAL: {libro.Unidades}
-------------------------------------------
- *** POR FAVOR DEVOLVER A TIEMPO ***
-
-
-";
+string contenido = CrearContenidoTicket(
+    "NUEVO PRESTAMO DETECTADO",
+    ticketId, usuario, libro, "STOCK ACTUAL",
+    "**** POR FAVOR DEVOLVER A TIEMPO ***"
+);
 GuardarTicket("Prestamo", ticketId, contenido);
 }
 
 public void GenerarTicketDevolucion(Libro libro, string usuario)
 {
 string ticketId = CrearTicketId("DEV");
-string contenido = $@" 
-==========================================
-         NUEVA DEVOLUCIÓN 
-==========================================
-TICKET: {ticketId}
-FECHA: {DateTime.Now:dd/MM/yyyy HH:mm:ss}
-USUARIO: {usuario}
-
-LIBRO: {libro.Titulo.PadRight(25)}
-AUTOR: {libro.Autor.PadRight(25)}
-
-NUEVO STOCK: {libro.Unidades}
-------------------------------------------
- ***GRACIAS POR USAR NUESTRO SERVICIO*** <3
-
-
-";
+string contenido = CrearContenidoTicket(
+    "NUEVA DEVOLUCION DETECTADA",
+    ticketId, usuario, libro, "NUEVO STOCK",
+    "**** GRACIAS POR USAR NUESTRO SERVICIO <3 ***"
+);
 GuardarTicket("Devolucion", ticketId, contenido);
 }
     private readonly Random _random = new Random();
@@ -75,6 +50,26 @@ GuardarTicket("Devolucion", ticketId, contenido);
             string ruta = Path.Combine(_carpeta, archiovFinal);
             File.WriteAllText(ruta, contenido);
             ConsoleHelper.Success($"\n[TICKET] Ticket generado: {archiovFinal}");
+        }
+    private string CrearContenidoTicket(string titulo, string ticketId, string usuario, Libro libro, string stockTexto, string MensajeFinal)
+        {
+         return $@"
+==========================================
+{titulo}
+==========================================
+TICKET: {ticketId}
+FECHA: {DateTime.Now.ToString(": dd/MM/yyyy HH:mm:ss")}
+USUARIO: {usuario}
+
+LIBRO: {libro.Titulo}
+AUTOR: {libro.Autor}
+
+STOCK ACTUAL: {libro.Unidades}
+
+------------------------------------------
+{MensajeFinal}
+
+ ";
         }
     }
 }

@@ -1,33 +1,14 @@
-using System.Text.Json;
-using BibliotecaV1.Models;
+using BibliotecaV1.Data;
 
 namespace BibliotecaV1.Services
 {
-  public static class UsuarioServicio
+  public class UsuarioServicio
     {
-        private static string ruta = Path.Combine("Data", "Usuarios.json");
-        public static List<Usuario> Cargar()
+    private readonly UsuarioRepository _repo = new UsuarioRepository();
+        public bool ExisteUsuario(string nombre)
         {
-            if (!File.Exists(ruta))
-            return new List<Usuario>();
-
-            string contenido = File.ReadAllText(ruta);
-            return JsonSerializer.Deserialize<List<Usuario>>(contenido) ?? new List<Usuario>();
-
-        }
-
-        public static void Guardar(List<Usuario> usuarios)
-        {
-            var json = JsonSerializer.Serialize(usuarios, new JsonSerializerOptions
-            {
-                WriteIndented = true
-            });
-            File.WriteAllText(ruta, json);
-        }
-
-        public static bool ExisteUsuario(List<Usuario> lista, string nombre)
-        {
-            return lista.Any(u => u.Nombre.ToLower() == nombre.ToLower());
+            var usuarios = _repo.LeerUsuarios();
+            return usuarios.Any(u => u.Nombre.ToLower() == nombre.ToLower());
         }
     }
 }

@@ -3,7 +3,6 @@ using BibliotecaV1.Helpers;
 using BibliotecaV1.Models;
 using System.Linq;
 using BibliotecaV1.Services;
-using System.Diagnostics;
 
 namespace BibliotecaV1.Logic
 {
