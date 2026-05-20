@@ -36,7 +36,7 @@ STOCK ACTUAL: {libro.Unidades}
 
 
 ";
-GuardarTicket("Prestamo.txt", contenido);
+GuardarTicket("Prestamo", ticketId, contenido);
 }
 
 public void GenerarTicketDevolucion(Libro libro, string usuario)
@@ -59,7 +59,7 @@ NUEVO STOCK: {libro.Unidades}
 
 
 ";
-GuardarTicket("Devolucion.txt", contenido);
+GuardarTicket("Devolucion", ticketId, contenido);
 }
     private readonly Random _random = new Random();
     private string CrearTicketId(string prefijo)
@@ -68,11 +68,13 @@ GuardarTicket("Devolucion.txt", contenido);
            int numero = _random.Next(1000, 9999);
            return $"{prefijo}-{numero}"; 
         }
-    private void GuardarTicket(string nombreArchivo, string contenido)
+    private void GuardarTicket(string nombreArchivo, string ticketId, string contenido)
         {
-            string ruta = Path.Combine(_carpeta, nombreArchivo);
-            File.AppendAllText(ruta, contenido);
-            ConsoleHelper.Success($"\n[TICKET] Ticket generado: {nombreArchivo}");
+            string archiovFinal= $"{nombreArchivo}_{ticketId}";
+
+            string ruta = Path.Combine(_carpeta, archiovFinal);
+            File.WriteAllText(ruta, contenido);
+            ConsoleHelper.Success($"\n[TICKET] Ticket generado: {archiovFinal}");
         }
     }
 }
