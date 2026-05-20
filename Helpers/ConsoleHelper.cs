@@ -26,7 +26,7 @@ namespace BibliotecaV1.Helpers
             Console.WriteLine(mensaje);
             Console.ResetColor();
         }
-        public static void Tiltte(string mensaje)
+        public static void Title(string mensaje)
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("========================");

@@ -27,7 +27,7 @@ namespace BibliotecaV1.Services
 
         public static bool ExisteUsuario(List<Usuario> lista, string nombre)
         {
-            return lista.Any(u => u.nombre.ToLower() == nombre.ToLower());
+            return lista.Any(u => u.Nombre.ToLower() == nombre.ToLower());
         }
     }
 }

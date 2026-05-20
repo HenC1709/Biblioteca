@@ -6,7 +6,7 @@ namespace BibliotecaV1.Services
     public void Buscar(Biblioteca miBiblioteca)
        {
         Console.Clear();
-        ConsoleHelper.Tiltte("BUSCADOR DE LIBROS");
+        ConsoleHelper.Title("BUSCADOR DE LIBROS");
         Console.ResetColor();
         
         ConsoleHelper.Info("\nIntroduce el nombre del libro a buscar, por favor");

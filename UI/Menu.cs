@@ -16,16 +16,16 @@ namespace BibliotecaV1.Logic
           do
             {
                 Console.Clear();
-                ConsoleHelper.Tiltte("SISTEMA BIBLIOTECA");
-                Console.WriteLine($"Usuario: {usuario.nombre}");
-                Console.WriteLine($"Rol: {usuario.rol}");
+                ConsoleHelper.Title("SISTEMA BIBLIOTECA");
+                Console.WriteLine($"Usuario: {usuario.Nombre}");
+                Console.WriteLine($"Rol: {usuario.Rol}");
 
                 Console.WriteLine("1. Buscar Libro");
                 Console.WriteLine("2. Ver Catalogo");
                 Console.WriteLine("3. Prestar Libro");
                 Console.WriteLine("4. Devolver Libro");
                 //solo para los admin
-                if (usuario.rol == Rol.Admin)
+                if (usuario.Rol == Rol.Admin)
                 {
                     Console.WriteLine("5. Agregar Libro");
                 }
@@ -50,7 +50,7 @@ namespace BibliotecaV1.Logic
                     break;
 
                     case "5":
-                    if (usuario.rol == Rol.Admin)
+                    if (usuario.Rol == Rol.Admin)
                         {
                             ManejarAgregarLibro(miDepo);
                         }
@@ -78,7 +78,7 @@ namespace BibliotecaV1.Logic
             Console.Clear();
             int IdPrestamo = InputHelper.LeerEntero("Ingrese ID del Libro: ");
 
-            string resultado = miDepo.PrestarLibro(IdPrestamo, usuario.nombre);
+            string resultado = miDepo.PrestarLibro(IdPrestamo, usuario.Nombre);
             if (resultado.Contains("exitoso"))
             {
                 ConsoleHelper.Success(resultado);
@@ -93,7 +93,7 @@ namespace BibliotecaV1.Logic
             Console.Clear();
             int IdDevolucion = InputHelper.LeerEntero("Ingrese ID del Libro: ");
 
-            string resultado = miDepo.DevolverLibro(IdDevolucion, usuario.nombre);
+            string resultado = miDepo.DevolverLibro(IdDevolucion, usuario.Nombre);
             if (resultado.Contains("exitoso"))
             {
                 ConsoleHelper.Success(resultado);

@@ -1,37 +1,7 @@
 [
   {
-    "nombre": "Miguel",
-    "id": "1520",
-    "rol": 0
-  },
-  {
-    "nombre": "Orlando",
-    "id": "5020",
-    "rol": 0
-  },
-  {
-    "nombre": "Henry",
-    "id": "1709",
-    "rol": 1
-  },
-  {
-    "nombre": "logan",
-    "id": "2000",
-    "rol": 0
-  },
-  {
-    "nombre": "Luis",
-    "id": "5000",
-    "rol": 0
-  },
-  {
-    "nombre": "lucho",
-    "id": "6000",
-    "rol": 0
-  },
-  {
-    "nombre": "0",
-    "id": "5050",
-    "rol": 0
+    "Nombre": "Henry",
+    "Id": "1709",
+    "Rol": 1
   }
 ]

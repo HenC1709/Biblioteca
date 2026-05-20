@@ -12,11 +12,10 @@ namespace BibliotecaV1.Services
         public Usuario? IniciarSesion()
         {
             Console.Clear();
-            ConsoleHelper.Tiltte(" 🌸 BIBLIOTECA LOGIN 🌸 ");
+            ConsoleHelper.Title("LOGIN");
             Console.WriteLine("1. Iniciar Sesión");
             Console.WriteLine("2. Registro");
-            Console.Write("\nSeleccione una opción: ");
-            string respuesta = Console.ReadLine()!.ToUpper();
+            string respuesta = InputHelper.LeerTexto("\nSeleccione una opción: ").ToUpper();
             var lista = UsuarioServicio.Cargar();
 
             // 🔹 REGISTRO
@@ -25,51 +24,53 @@ namespace BibliotecaV1.Services
                
                 Usuario nuevo = new Usuario();
 
-                Console.Write("Nombre: ");
-                nuevo.nombre = Console.ReadLine()!;
+                nuevo.Nombre = InputHelper.LeerTexto("Nombre: ");
 
-                Console.Write("ID (4 números): ");
-                string id = Console.ReadLine()!;
+                string id = InputHelper.LeerTexto("ID (4 numeros): ");
 
                 while (!SoloNumeros(id))
                 {
-                    ConsoleHelper.Error("ID Invalida (4 numeros)");
-                    id = Console.ReadLine()!;
+                    ConsoleHelper.Warning("ID Invalida (4 numeros): ");
+                    id = InputHelper.LeerTexto("ID (4 numeros): ");
                 }
-                nuevo.id = id;
+                if (UsuarioServicio.ExisteUsuario(lista, nuevo.Nombre))
+                {
+                    ConsoleHelper.Warning("Ese usuario ya existe.");
+                    ConsoleHelper.Pause();
+                    return null;
+                }
+                nuevo.Id = id;
 
                 lista.Add(nuevo);
                 UsuarioServicio.Guardar(lista);
 
                 ConsoleHelper.Success("Usuario registrado correctamente!");
-                Console.ReadKey();
+                ConsoleHelper.Pause();
                 return null;
             }
 
             // 🔹 LOGIN
             Console.Clear();
-            ConsoleHelper.Tiltte("LOGIN");
+            ConsoleHelper.Title("LOGIN");
 
-            Console.Write("Nombre: ");
-            string nombre = Console.ReadLine()!;
+            string nombre = InputHelper.LeerTexto("Nombre: ");
 
-            Console.Write("ID: ");
-            string idlogin = Console.ReadLine()!;
+            string idlogin = InputHelper.LeerTexto("ID: ");
 
             var listaUsuarios = UsuarioServicio.Cargar();
 
             var user = listaUsuarios
-                .FirstOrDefault(u => u.nombre.ToLower() == nombre.ToLower() && u.id == idlogin);
+                .FirstOrDefault(u => u.Nombre.ToLower() == nombre.ToLower() && u.Id == idlogin);
 
             if (user != null)
             {
-                ConsoleHelper.Success($"Bienvenido {user.nombre} ROL: {user.rol} 😎 ");
-                Console.ReadKey();
+                ConsoleHelper.Success($"Bienvenido {user.Nombre} ROL: {user.Rol} 😎 ");
+                ConsoleHelper.Pause();
                 return user;
             }
 
             ConsoleHelper.Error("Usuario o ID incorrecto");
-            Console.ReadKey();
+            ConsoleHelper.Pause();
             return null;
         }
 

@@ -3,7 +3,7 @@ namespace BibliotecaV1.Models
    public class Libro
 {
     
-   public int ID { get; set; }
+   public int Id { get; set; }
    
     public string Titulo { get; set; }
 
@@ -17,7 +17,7 @@ namespace BibliotecaV1.Models
 
     public Libro(int id, string titulo, string autor, int unidades)
     {
-        this.ID = id;
+        this.Id = id;
 
         this.Titulo = titulo;
 
@@ -31,7 +31,7 @@ namespace BibliotecaV1.Models
 
 public override string ToString()
     {
-       return $"[ID: {ID}] -{Titulo} (Autor: {Autor}) - Unidades: {Unidades} - Ingresado el: {FechaDeIngreso.ToShortDateString()}";
+       return $"[ID: {Id}] -{Titulo} (Autor: {Autor}) - Unidades: {Unidades} - Ingresado el: {FechaDeIngreso.ToShortDateString()}";
     }
 
 } 

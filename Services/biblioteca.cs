@@ -41,7 +41,7 @@ namespace BibliotecaV1.Services
 
             if (_libros.Count > 0)
             {
-                nuevoId = _libros.Max(l => l.ID) + 1;
+                nuevoId = _libros.Max(l => l.Id) + 1;
             }
 
             Libro nuevoLibro = new Libro(nuevoId, titulo, autor, unidades);
@@ -55,7 +55,7 @@ namespace BibliotecaV1.Services
 
         public string PrestarLibro(int idLibro, string usuarioNombre)
         {
-            var libro = _libros.FirstOrDefault(l => l.ID == idLibro);
+            var libro = _libros.FirstOrDefault(l => l.Id == idLibro);
 
             if (libro == null)
             {
@@ -82,7 +82,7 @@ namespace BibliotecaV1.Services
 
         public string DevolverLibro(int idLibro, string usuarioNombre)
         {
-            var libro = _libros.FirstOrDefault(l => l.ID == idLibro);
+            var libro = _libros.FirstOrDefault(l => l.Id == idLibro);
 
             if (libro == null)
             {
