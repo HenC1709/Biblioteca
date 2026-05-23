@@ -1,77 +1,316 @@
-# 📚 BibliotecaV1
+# 📚 BibliotecaV2
 
-## 📝 Resumen
+## 🧠 Descripción
 
-**BibliotecaV1** es un proyecto de consola desarrollado en **C#** enfocado en la gestión básica y eficiente de una biblioteca. 
+**BibliotecaV2** es una evolución arquitectónica del proyecto BibliotecaV1.
 
-El sistema está diseñado para ofrecer una experiencia intuitiva a través de la terminal, dividiendo las capacidades según el rol del usuario y asegurando que la información no se pierda al cerrar el programa.
+El sistema fue refactorizado para dejar atrás una estructura monolítica básica y comenzar a implementar una arquitectura más organizada, desacoplada y escalable, inspirada en principios de Clean Architecture y separación por capas.
 
-Actualmente, el proyecto se encuentra en una etapa de refactorización y mejora arquitectónica para preparar futuras versiones más avanzadas.
+Actualmente el proyecto funciona completamente en consola usando persistencia local en archivos JSON, pero la estructura fue preparada para facilitar futuras migraciones hacia:
 
----
-
-## 🚀 Funcionalidades Actuales
-
-### 👥 Gestión de Usuarios y Autenticación
-- **Registro de usuarios:** Creación de nuevas cuentas en el sistema.
-- **Inicio de sesión seguro:** Validación de credenciales para acceder.
-- **Control de Roles:**
-  - **Usuario:** Acceso a búsquedas, préstamos y devoluciones.
-  - **Administrador (Admin):** Control total sobre la gestión de libros y reportes.
-- **Robustez del sistema:** 
-  - Validación estricta de ID numérica.
-  - Prevención de usuarios duplicados para evitar conflictos en la base de datos.
-
-### 📖 Gestión de la Biblioteca
-- **Control de Libros:** Alta, baja y modificación del catálogo (exclusivo de Admin).
-- **Préstamos y Devoluciones:** Flujo completo para que los usuarios soliciten y entreguen libros.
-- **Generación Automática de Tickets:** Emisión de un comprobante físico/digital en texto cada vez que se realiza una transacción.
-- **Persistencia de Datos:** Almacenamiento local automático en formato **JSON** para conservar el estado de los libros y usuarios.
+* Bases de datos SQL
+* APIs REST
+* Interfaces gráficas (WPF)
+* Arquitecturas empresariales más avanzadas
 
 ---
 
-## 🛠️ Tecnologías Usadas
+# 🚀 Características Principales
 
-- **Lenguaje:** C#
-- **Ecosistema:** .NET (Consola)
-- **Serialización:** `System.Text.Json` para la persistencia de datos.
+## 👤 Sistema de Usuarios
+
+* Registro de usuarios
+* Inicio de sesión
+* Validación de credenciales
+* Roles de usuario:
+
+  * Usuario
+  * Administrador
+* Prevención de usuarios duplicados
+* Persistencia automática de sesiones
 
 ---
 
-## 📂 Estructura del Proyecto
+## 📚 Gestión de Biblioteca
+
+* Registro de libros
+* Modificación de libros
+* Eliminación de libros
+* Control de stock
+* Búsqueda de libros
+* Persistencia automática en JSON
+
+---
+
+## 🔄 Sistema de Préstamos
+
+* Solicitud de préstamos
+* Devolución de libros
+* Validación de disponibilidad
+* Control de límite de préstamos
+* Estado de préstamos mediante enums
+* Generación automática de tickets
+
+---
+
+## ⚠️ Sistema de Excepciones Personalizadas
+
+El proyecto ahora implementa excepciones específicas para blindar reglas de negocio.
+
+### Exceptions actuales
+
+* `CredencialesInvalidasException`
+* `LibroNoEncontradoException`
+* `LimitePrestamosException`
+* `PrestamoNoActivoException`
+* `StockInsuficienteException`
+* `UsuarioYaExisteException`
+
+Esto permite:
+
+* código más limpio
+* errores más controlados
+* mejor mantenimiento
+* lógica desacoplada de la interfaz
+
+---
+
+# 🧱 Arquitectura del Proyecto
 
 ```plaintext
-BibliotecaV1/
+BibliotecaV2/
 │
-├── Data/                          # Capa de almacenamiento y persistencia
-│   ├── LibroRepository.cs
-│   ├── UsuarioRepository.cs
-│   ├── LibrosGuardados.json       # Base de datos local de libros
-│   └── Usuarios.json              # Base de datos local de usuarios
+├── Application/                    # Casos de uso y lógica de aplicación
+│   ├── DTOs/
+│   └── Services/
 │
-├── Helpers/                       # Herramientas de utilidad general
-│   ├── ConsoleHelper.cs
-│   └── InputHelper.cs
+├── Core/                           # Núcleo del dominio
+│   ├── Entities/
+│   ├── Enums/
+│   ├── Exceptions/
+│   └── Interfaces/
 │
-├── Logic/                         # Flujo principal de la aplicación
-│   ├── Menu.cs
-│   └── TicketManager.cs
+├── Infrastructure/                 # Persistencia e implementaciones
+│   ├── Data/
+│   ├── Repositories/
+│   ├── Seeders/
+│   └── Tickets/
 │
-├── Models/                        # Clases de entidad (Modelos de datos)
-│   ├── Libro.cs
-│   ├── Usuario.cs
-│   └── Prestamo.cs                # (En preparación para futuras actualizaciones)
+├── UI/                             # Interfaz de consola
+│   └── ConsoleUI/
 │
-├── Services/                      # Lógica de negocio y servicios del sistema
-│   ├── Auth.cs
-│   ├── Biblioteca.cs
-│   ├── BusquedaDeLibros.cs
-│   ├── LoginService.cs
-│   └── UsuarioServicio.cs
+├── Data/                           # Datos persistidos localmente
 │
-├── Ticket_Biblioteca/             # Carpeta de salida
-│   └── (Tickets generados automáticamente en .txt)
-│
-├── .gitignore
-├── Program.cs                     # Punto de entrada de la aplicación
-└── BibliotecaV1.csproj
+├── Program.cs
+├── BibliotecaV1.csproj
+└── README.md
+```
+
+---
+
+# 🧩 Explicación de Capas
+
+## 🟦 Core
+
+Contiene las reglas más importantes del sistema.
+
+### Incluye:
+
+* Entities
+* Enums
+* Interfaces
+* Exceptions
+
+Esta capa no depende de ninguna otra.
+
+---
+
+## 🟨 Application
+
+Contiene la lógica de negocio y coordinación del sistema.
+
+### Servicios actuales
+
+* `AuthService`
+* `LibroService`
+* `MultaService`
+* `PrestamoService`
+* `SessionService`
+* `UsuarioService`
+
+También incluye DTOs para desacoplar entradas y salidas.
+
+---
+
+## 🟩 Infrastructure
+
+Contiene implementaciones técnicas.
+
+### Incluye:
+
+* Repositorios JSON
+* Seeders automáticos
+* Generación de tickets
+* Persistencia local
+
+Actualmente el proyecto usa:
+
+```csharp
+System.Text.Json
+```
+
+para serialización.
+
+---
+
+## 🟥 UI
+
+Capa responsable únicamente de interacción con consola.
+
+La lógica fuerte ya no vive aquí.
+
+---
+
+# 🧬 Principios Aplicados
+
+* Separación por responsabilidades
+* Bajo acoplamiento
+* Uso de interfaces
+* Encapsulamiento
+* Persistencia desacoplada
+* Arquitectura preparada para escalar
+* Dominio separado de infraestructura
+* Manejo profesional de errores
+
+---
+
+# 🛠️ Tecnologías Utilizadas
+
+* C#
+* .NET 8
+* Consola
+* System.Text.Json
+* Programación Orientada a Objetos
+
+---
+
+# 📦 Persistencia
+
+Actualmente el proyecto usa persistencia basada en JSON.
+
+Archivos utilizados:
+
+```plaintext
+Infrastructure/Data/
+├── libros.json
+├── prestamos.json
+└── usuarios.json
+```
+
+Esto permite:
+
+* guardar datos sin bases de datos
+* practicar lógica backend
+* preparar migración futura hacia SQL
+
+---
+
+# 🎫 Tickets Automáticos
+
+El sistema genera tickets automáticamente mediante:
+
+```plaintext
+Infrastructure/Tickets/
+```
+
+Esto desacopla completamente la escritura de tickets del resto del sistema.
+
+---
+
+# 🧪 Seeders
+
+El proyecto implementa seeders automáticos para generar datos iniciales:
+
+* `LibroSeeder`
+* `UsuarioSeeder`
+
+---
+
+# ▶️ Cómo Ejecutar
+
+## Requisitos
+
+* .NET 8 SDK instalado
+
+---
+
+## Ejecutar proyecto
+
+```bash
+dotnet run
+```
+
+---
+
+# 📈 Evolución del Proyecto
+
+## BibliotecaV1
+
+* Arquitectura básica
+* Servicios mezclados
+* Persistencia simple
+* Menor separación de responsabilidades
+
+---
+
+## BibliotecaV2
+
+* Refactorización arquitectónica
+* Separación por capas
+* Exceptions personalizadas
+* Interfaces desacopladas
+* DTOs
+* Repositorios JSON
+* Dominio organizado
+* Preparación para SQL/API/WPF
+
+---
+
+# 🔮 Futuro del Proyecto
+
+Próximas metas planeadas:
+
+* Migración hacia SQL
+* Repository Pattern más avanzado
+* Unit Testing
+* APIs REST
+* JWT Authentication
+* Logging
+* Dependency Injection
+* Entity Framework
+* WPF
+* Clean Architecture más avanzada
+
+---
+
+# 📚 Objetivo Educativo
+
+Este proyecto fue desarrollado principalmente como práctica avanzada de:
+
+* C#
+* Arquitectura de software
+* Programación Orientada a Objetos
+* Persistencia de datos
+* Backend Development
+* Separación por capas
+* Escalabilidad de proyectos
+
+---
+
+# 👨‍💻 Autor
+
+Desarrollado por Henry Cuellar.
+
+Repositorio:
+
+* urlGitHub - BibliotecaV2[https://github.com/HenC1709/Biblioteca/t](https://github.com/HenC1709/Biblioteca/t)
