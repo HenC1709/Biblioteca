@@ -1,0 +1,72 @@
+[
+  {
+    "Id": 1,
+    "Titulo": "El nombre de la rosa",
+    "Autor": "Umberto Eco",
+    "Unidades": 4,
+    "FechaIngreso": "2026-05-23T14:18:56.4815538-04:00"
+  },
+  {
+    "Id": 2,
+    "Titulo": "1984",
+    "Autor": "George Orwell",
+    "Unidades": 5,
+    "FechaIngreso": "2026-05-23T14:18:56.492034-04:00"
+  },
+  {
+    "Id": 3,
+    "Titulo": "Clean Code",
+    "Autor": "Robert C. Martin",
+    "Unidades": 2,
+    "FechaIngreso": "2026-05-23T14:18:56.4920354-04:00"
+  },
+  {
+    "Id": 4,
+    "Titulo": "Cien a\u00F1os de soledad",
+    "Autor": "Gabriel Garc\u00EDa M\u00E1rquez",
+    "Unidades": 3,
+    "FechaIngreso": "2026-05-23T14:18:56.4920356-04:00"
+  },
+  {
+    "Id": 5,
+    "Titulo": "El principito",
+    "Autor": "Antoine de Saint-Exup\u00E9ry",
+    "Unidades": 6,
+    "FechaIngreso": "2026-05-23T14:18:56.4920357-04:00"
+  },
+  {
+    "Id": 6,
+    "Titulo": "Don Quijote de la Mancha",
+    "Autor": "Miguel de Cervantes",
+    "Unidades": 2,
+    "FechaIngreso": "2026-05-23T14:18:56.4920372-04:00"
+  },
+  {
+    "Id": 7,
+    "Titulo": "Harry Potter y la piedra filosofal",
+    "Autor": "J.K. Rowling",
+    "Unidades": 4,
+    "FechaIngreso": "2026-05-23T14:18:56.4920373-04:00"
+  },
+  {
+    "Id": 8,
+    "Titulo": "El c\u00F3digo Da Vinci",
+    "Autor": "Dan Brown",
+    "Unidades": 3,
+    "FechaIngreso": "2026-05-23T14:18:56.4920374-04:00"
+  },
+  {
+    "Id": 9,
+    "Titulo": "Sapiens",
+    "Autor": "Yuval Noah Harari",
+    "Unidades": 3,
+    "FechaIngreso": "2026-05-23T14:18:56.4920375-04:00"
+  },
+  {
+    "Id": 10,
+    "Titulo": "The Pragmatic Programmer",
+    "Autor": "Hunt \u0026 Thomas",
+    "Unidades": 2,
+    "FechaIngreso": "2026-05-23T14:18:56.4920377-04:00"
+  }
+]

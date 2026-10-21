@@ -1,12 +1,14 @@
 [
   {
-    "Nombre": "Henry",
-    "Id": "1709",
-    "Rol": 1
+    "Nombre": "admin",
+    "PasswordHash": "$2a$11$vBNLTD3bJm1pJpFvuSzH/uMmxtIBqqn.S.v8IpsJiUAqOhK5B0Y3.",
+    "Rol": 2,
+    "FechaRegistro": "2026-05-23T14:18:57.016722-04:00"
   },
   {
-    "Nombre": "miguel",
-    "Id": "5020",
-    "Rol": 0
+    "Nombre": "Henry",
+    "PasswordHash": "$2a$11$vL9sNxwkX0OjcfSqZRKZ2OKtiSdqSoSo0JexQWs1bKz0JPLOVthVC",
+    "Rol": 0,
+    "FechaRegistro": "2026-05-23T14:19:28.2517453-04:00"
   }
 ]
