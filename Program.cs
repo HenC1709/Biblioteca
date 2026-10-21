@@ -6,23 +6,23 @@ using BibliotecaV2.Infrastructure.Tickets;
 using BibliotecaV2.UI.ConsoleUI.Helpers;
 using BibliotecaV2.UI.ConsoleUI.Menus;
 
-// ─────────────────────────────────────────
+
 // INFRAESTRUCTURA — repositorios concretos
-// ─────────────────────────────────────────
+
 var libroRepo    = new JsonLibroRepository();
 var usuarioRepo  = new JsonUsuarioRepository();
 var prestamoRepo = new JsonPrestamoRepository();
 var ticketWriter = new TicketFileWriter();
 
-// ─────────────────────────────────────────
+
 // SEEDERS — datos de ejemplo al primer arranque
-// ─────────────────────────────────────────
+
 new LibroSeeder(libroRepo).Seed();
 new UsuarioSeeder(usuarioRepo).Seed();
 
-// ─────────────────────────────────────────
+
 // APPLICATION — servicios con dependencias inyectadas
-// ─────────────────────────────────────────
+
 var session        = new SessionService();
 var authService    = new AuthService(usuarioRepo, session);
 var libroService   = new LibroService(libroRepo);
@@ -30,9 +30,9 @@ var multaService   = new MultaService();
 var prestamoService = new PrestamoService(prestamoRepo, libroRepo, ticketWriter, multaService);
 var usuarioService  = new UsuarioService(usuarioRepo);
 
-// ─────────────────────────────────────────
+
 // UI — login y despacho al menú correcto
-// ─────────────────────────────────────────
+
 var loginView = new LoginView(authService);
 
 while (true)
