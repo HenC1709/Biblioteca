@@ -1,0 +1,20 @@
+[
+  {
+    "Id": "cb979b00-e9cd-4e66-9851-0b044107cecc",
+    "LibroId": 9,
+    "UsuarioNombre": "Henry",
+    "FechaPrestamo": "2026-05-23T14:39:31.5438172-04:00",
+    "FechaLimite": "2026-05-30T14:39:31.5439139-04:00",
+    "FechaDevolucion": null,
+    "Estado": 0
+  },
+  {
+    "Id": "5e552c06-374d-44e2-928b-7cf0487e1123",
+    "LibroId": 4,
+    "UsuarioNombre": "Henry",
+    "FechaPrestamo": "2026-05-23T22:46:11.8592437-04:00",
+    "FechaLimite": "2026-05-30T22:46:11.8593178-04:00",
+    "FechaDevolucion": "2026-05-23T22:46:21.5751373-04:00",
+    "Estado": 1
+  }
+]
