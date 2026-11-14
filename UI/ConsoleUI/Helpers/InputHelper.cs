@@ -1,5 +1,3 @@
-using BibliotecaV2.UI.ConsoleUI.Helpers;
-
 namespace BibliotecaV2.UI.ConsoleUI.Helpers
 {
     public static class InputHelper
@@ -32,7 +30,7 @@ namespace BibliotecaV2.UI.ConsoleUI.Helpers
                     password = password[..^1];
                     Console.Write("\b \b");
                 }
-                else if (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace)
+                else if (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace && !char.IsControl(key.KeyChar))
                 {
                     password += key.KeyChar;
                     Console.Write("*");

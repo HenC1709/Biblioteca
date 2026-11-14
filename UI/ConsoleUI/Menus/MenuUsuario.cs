@@ -28,6 +28,7 @@ namespace BibliotecaV2.UI.ConsoleUI.Menus
                 Console.WriteLine($"Usuario : {_usuario.Nombre}  |  Rol: {_usuario.Rol}\n");
 
                 MostrarOpciones();
+                Console.WriteLine("0. Cerrar sesión");
 
                 opcion = InputHelper.LeerTexto("\nSeleccione una opción: ");
                 ManejarOpcion(opcion);
@@ -44,7 +45,6 @@ namespace BibliotecaV2.UI.ConsoleUI.Menus
             Console.WriteLine("3. Pedir préstamo");
             Console.WriteLine("4. Devolver libro");
             Console.WriteLine("5. Mis préstamos");
-            Console.WriteLine("0. Cerrar sesión");
         }
 
         protected virtual void ManejarOpcion(string opcion)
