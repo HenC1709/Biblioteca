@@ -7,18 +7,15 @@ using BibliotecaV2.UI.ConsoleUI.Helpers;
 using BibliotecaV2.UI.ConsoleUI.Menus;
 
 
-// INFRAESTRUCTURA — repositorios concretos
+// INFRAESTRUCTURA — repositorios concretos (MySQL)
 
-var libroRepo    = new JsonLibroRepository();
-var usuarioRepo  = new JsonUsuarioRepository();
-var prestamoRepo = new JsonPrestamoRepository();
+string connectionString = Environment.GetEnvironmentVariable("BIBLIOTECA_DB_CONN")
+    ?? "Server=localhost;Port=3306;Database=biblioteca_v2;User=root;Password=;";
+
+var libroRepo    = new MySqlLibroRepository(connectionString);
+var usuarioRepo  = new MySqlUsuarioRepository(connectionString);
+var prestamoRepo = new MySqlPrestamoRepository(connectionString);
 var ticketWriter = new TicketFileWriter();
-
-
-// SEEDERS — datos de ejemplo al primer arranque
-
-new LibroSeeder(libroRepo).Seed();
-new UsuarioSeeder(usuarioRepo).Seed();
 
 
 // APPLICATION — servicios con dependencias inyectadas
@@ -37,6 +34,10 @@ var loginView = new LoginView(authService);
 
 try
 {
+    // SEEDERS — datos de ejemplo al primer arranque en BD
+    new LibroSeeder(libroRepo).Seed();
+    new UsuarioSeeder(usuarioRepo).Seed();
+
     while (true)
     {
         var usuario = loginView.Mostrar();
