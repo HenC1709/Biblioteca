@@ -44,14 +44,14 @@ Se seleccionaron los 30 pendientes más prioritarios ordenados por severidad; 3 
   - Qué pasa: La entidad `Multa` y su propiedad `Pagada` se instancian en memoria y se imprimen en ticket, pero nunca se guardan en un repositorio persistente.
   - Sugerencia: Diseñar una interfaz `IMultaRepository` y persistir las multas para permitir consulta de saldos y control de cobranza.
 
-- [ ] **[Severidad: media]** Falso positivo en mensaje de actualización de rol para usuarios inexistentes
-  - Archivo: UI/ConsoleUI/Menus/MenuAdmin.cs (líneas 72-73) y Application/Services/UsuarioService.cs (líneas 21-30)
-  - Qué pasa: `UsuarioService.CambiarRol` finaliza silenciosamente si el usuario no existe, pero la interfaz siempre confirma el cambio exitoso.
+- [x] **[Severidad: media - RESUELTO]** Falso positivo en mensaje de actualización de rol para usuarios inexistentes
+  - Archivo: UI/ConsoleUI/Menus/MenuAdmin.cs (líneas 72-85) y Application/Services/UsuarioService.cs (líneas 21-31)
+  - Qué pasa: `UsuarioService.CambiarRol` finalizaba silenciosamente si el usuario no existía, pero la interfaz siempre confirmaba el cambio exitoso. (Corregido retornando `bool` en `CambiarRol` y validando el resultado en `MenuAdmin`).
   - Sugerencia: Devolver un resultado booleano o lanzar una excepción descriptiva si el usuario no es encontrado en el repositorio.
 
-- [ ] **[Severidad: media]** Asignación silenciosa de rol Usuario ante opciones inválidas en menú de administración
-  - Archivo: UI/ConsoleUI/Menus/MenuAdmin.cs (líneas 64-70)
-  - Qué pasa: Si el administrador escribe un valor inválido o presiona una tecla no listada, el bloque switch asigna por defecto `Rol.Usuario` sin advertencia.
+- [x] **[Severidad: media - RESUELTO]** Asignación silenciosa de rol Usuario ante opciones inválidas en menú de administración
+  - Archivo: UI/ConsoleUI/Menus/MenuAdmin.cs (líneas 64-76)
+  - Qué pasa: Si el administrador escribía un valor inválido o presionaba una tecla no listada, el bloque switch asignaba por defecto `Rol.Usuario` sin advertencia. (Corregido evaluando `Rol?` nulo para cancelar con advertencia ante entradas inválidas).
   - Sugerencia: Validar la entrada dentro de un bucle de confirmación y rechazar opciones que no correspondan exactamente a los roles disponibles.
 
 - [ ] **[Severidad: media]** Estado 'Vencido' no persistido ni actualizado en los préstamos
@@ -175,7 +175,7 @@ Se seleccionaron los 30 pendientes más prioritarios ordenados por severidad; 3 
   - Qué pasa: Se puede modificar el rol del único administrador hacia un rol regular, dejando el sistema sin cuentas con acceso a la administración.
   - Sugerencia: Bloquear la modificación de rol si el usuario afectado es el único administrador registrado en el sistema.
 
-- [ ] **[Severidad: baja - RESUELTO]** Ausencia de captura global para excepciones no controladas en el bucle principal
+- [x] **[Severidad: baja - RESUELTO]** Ausencia de captura global para excepciones no controladas en el bucle principal
   - Archivo: Program.cs (líneas 38-58)
   - Qué pasa: Errores no previstos (e.g. bloqueos de archivos JSON por concurrencia o permisos de disco) causaban la caída súbita del programa sin mensaje controlado. (Implementado bloque try-catch global en el despacho de menús).
   - Sugerencia: Envolver el despacho de opciones en un bloque try-catch global que capture cualquier excepción imprevista y la notifique vía `ConsoleHelper`.

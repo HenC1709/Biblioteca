@@ -61,16 +61,28 @@ namespace BibliotecaV2.UI.ConsoleUI.Menus
             Console.WriteLine("  3. Admin");
 
             string rolOpcion = InputHelper.LeerTexto("Nuevo rol: ");
-            Rol nuevoRol = rolOpcion switch
+            Rol? nuevoRol = rolOpcion switch
             {
                 "1" => Rol.Usuario,
                 "2" => Rol.Bibliotecario,
                 "3" => Rol.Admin,
-                _ => Rol.Usuario
+                _ => null
             };
 
-            _usuarioService.CambiarRol(nombre, nuevoRol);
-            ConsoleHelper.Success($"Rol de '{nombre}' actualizado a {nuevoRol}.");
+            if (nuevoRol == null)
+            {
+                ConsoleHelper.Warning("Opción de rol inválida. No se realizaron cambios.");
+                return;
+            }
+
+            bool actualizado = _usuarioService.CambiarRol(nombre, nuevoRol.Value);
+            if (!actualizado)
+            {
+                ConsoleHelper.Error($"No se encontró ningún usuario con el nombre '{nombre}'.");
+                return;
+            }
+
+            ConsoleHelper.Success($"Rol de '{nombre}' actualizado a {nuevoRol.Value}.");
         }
     }
 }

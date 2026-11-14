@@ -18,15 +18,16 @@ namespace BibliotecaV2.Application.Services
             return _repo.ObtenerTodos();
         }
 
-        public void CambiarRol(string nombre, Rol nuevoRol)
+        public bool CambiarRol(string nombre, Rol nuevoRol)
         {
             var usuarios = _repo.ObtenerTodos();
             var usuario = usuarios.FirstOrDefault(u => u.Nombre.ToLower() == nombre.ToLower());
 
-            if (usuario == null) return;
+            if (usuario == null) return false;
 
             usuario.Rol = nuevoRol;
             _repo.Guardar(usuarios);
+            return true;
         }
     }
 }
