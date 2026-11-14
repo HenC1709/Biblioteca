@@ -1,4 +1,4 @@
-﻿using BibliotecaV2.Application.Services;
+using BibliotecaV2.Application.Services;
 using BibliotecaV2.Core.Enums;
 using BibliotecaV2.Infrastructure.Repositories;
 using BibliotecaV2.Infrastructure.Seeders;
@@ -35,24 +35,32 @@ var usuarioService  = new UsuarioService(usuarioRepo);
 
 var loginView = new LoginView(authService);
 
-while (true)
+try
 {
-    var usuario = loginView.Mostrar();
-
-    if (usuario == null)
+    while (true)
     {
-        ConsoleHelper.Info("Hasta pronto.");
-        break;
+        var usuario = loginView.Mostrar();
+
+        if (usuario == null)
+        {
+            ConsoleHelper.Info("Hasta pronto.");
+            break;
+        }
+
+        // Despachar al menú según el rol del usuario
+        var menu = usuario.Rol switch
+        {
+            Rol.Admin          => (MenuUsuario)new MenuAdmin(libroService, prestamoService, usuarioService, usuario),
+            Rol.Bibliotecario  => new MenuBibliotecario(libroService, prestamoService, usuario),
+            _                  => new MenuUsuario(libroService, prestamoService, usuario)
+        };
+
+        menu.Mostrar();
+        authService.Logout();
     }
-
-    // Despachar al menú según el rol del usuario
-    var menu = usuario.Rol switch
-    {
-        Rol.Admin          => (MenuUsuario)new MenuAdmin(libroService, prestamoService, usuarioService, usuario),
-        Rol.Bibliotecario  => new MenuBibliotecario(libroService, prestamoService, usuario),
-        _                  => new MenuUsuario(libroService, prestamoService, usuario)
-    };
-
-    menu.Mostrar();
-    authService.Logout();
+}
+catch (Exception ex)
+{
+    ConsoleHelper.Error($"[ERROR CRÍTICO] Ocurrió un error inesperado en la aplicación: {ex.Message}");
+    ConsoleHelper.Pause();
 }
