@@ -4,60 +4,58 @@
 
 **BibliotecaV2** es una evolución arquitectónica del proyecto BibliotecaV1.
 
-El sistema fue refactorizado para dejar atrás una estructura monolítica básica y comenzar a implementar una arquitectura más organizada, desacoplada y escalable, inspirada en principios de Clean Architecture y separación por capas.
+El sistema fue refactorizado para dejar atrás una estructura monolítica básica e implementar una arquitectura organizada, desacoplada y escalable en `src/`, inspirada en principios de **Clean Architecture** y separación por capas.
 
-Actualmente el proyecto funciona completamente en consola usando persistencia local en archivos JSON, pero la estructura fue preparada para facilitar futuras migraciones hacia:
+Actualmente el proyecto funciona en consola utilizando **persistencia relacional en MySQL** mediante `MySqlConnector` (manteniendo además soporte desacoplado de repositorios JSON a través de interfaces), y está preparado para futuras expansiones hacia:
 
-* Bases de datos SQL
 * APIs REST
 * Interfaces gráficas (WPF)
+* Pruebas unitarias automatizadas (`tests/`)
 * Arquitecturas empresariales más avanzadas
 
 ---
 
 # 🚀 Características Principales
 
-## 👤 Sistema de Usuarios
+## 👤 Sistema de Usuarios y Autenticación
 
-* Registro de usuarios
-* Inicio de sesión
-* Validación de credenciales
-* Roles de usuario:
-
-  * Usuario
-  * Administrador
-* Prevención de usuarios duplicados
-* Persistencia automática de sesiones
+* Registro de usuarios con contraseñas hasheadas mediante **BCrypt (`BCrypt.Net-Next`)**
+* Inicio de sesión con sanitización de caracteres de control en consola
+* Validación de credenciales y prevención de usuarios duplicados
+* Gestión de 3 roles de acceso jerárquicos:
+  * `Usuario`
+  * `Bibliotecario`
+  * `Admin` (con gestión y cambio validado de roles de usuario)
+* Control de sesión activa mediante `SessionService`
 
 ---
 
 ## 📚 Gestión de Biblioteca
 
-* Registro de libros
-* Modificación de libros
-* Eliminación de libros
-* Control de stock
-* Búsqueda de libros
-* Persistencia automática en JSON
+* Catálogo inicial automatizado con **50 libros** (`LibroSeeder` y script `seed_libros.sql`)
+* Registro de nuevos libros (rol `Bibliotecario` y `Admin`)
+* Consulta de catálogo completo con indicadores de disponibilidad
+* Control automático de stock en préstamos y devoluciones
+* Búsqueda de libros por título
+* Persistencia transaccional en **MySQL**
 
 ---
 
-## 🔄 Sistema de Préstamos
+## 🔄 Sistema de Préstamos y Multas
 
-* Solicitud de préstamos
-* Devolución de libros
-* Validación de disponibilidad
-* Control de límite de préstamos
-* Estado de préstamos mediante enums
-* Generación automática de tickets
+* Solicitud de préstamos y devolución de libros
+* Validación de stock disponible y límite máximo de préstamos activos por usuario (3)
+* Cálculo automático de multas por días de atraso (`MultaService`)
+* Seguimiento de préstamos activos y vencidos
+* Generación automática de tickets físicos en `.txt` (`Prestamo`, `Devolucion`, `Multa`)
 
 ---
 
-## ⚠️ Sistema de Excepciones Personalizadas
+## ⚠️ Sistema de Excepciones Personalizadas y Manejo Global
 
-El proyecto ahora implementa excepciones específicas para blindar reglas de negocio.
+El proyecto implementa excepciones de dominio específicas para blindar las reglas de negocio, además de un bloque global de captura de errores críticos en el punto de entrada.
 
-### Exceptions actuales
+### Excepciones de dominio actuales
 
 * `CredencialesInvalidasException`
 * `LibroNoEncontradoException`
@@ -66,13 +64,6 @@ El proyecto ahora implementa excepciones específicas para blindar reglas de neg
 * `StockInsuficienteException`
 * `UsuarioYaExisteException`
 
-Esto permite:
-
-* código más limpio
-* errores más controlados
-* mejor mantenimiento
-* lógica desacoplada de la interfaz
-
 ---
 
 # 🧱 Arquitectura del Proyecto
@@ -80,29 +71,47 @@ Esto permite:
 ```plaintext
 BibliotecaV2/
 │
-├── Application/                    # Casos de uso y lógica de aplicación
-│   ├── DTOs/
-│   └── Services/
+├── src/                                # Código fuente principal de la aplicación
+│   ├── Application/                    # Casos de uso y lógica de aplicación
+│   │   ├── DTOs/
+│   │   └── Services/
+│   │
+│   ├── Core/                           # Núcleo del dominio (sin dependencias externas)
+│   │   ├── Entities/
+│   │   ├── Enums/
+│   │   ├── Exceptions/
+│   │   └── Interfaces/
+│   │
+│   ├── Infrastructure/                 # Persistencia (MySQL / JSON), seeders y tickets
+│   │   ├── Data/
+│   │   │   └── seed_libros.sql
+│   │   ├── Repositories/
+│   │   │   ├── MySqlLibroRepository.cs
+│   │   │   ├── MySqlPrestamoRepository.cs
+│   │   │   ├── MySqlUsuarioRepository.cs
+│   │   │   ├── JsonLibroRepository.cs
+│   │   │   ├── JsonPrestamoRepository.cs
+│   │   │   └── JsonUsuarioRepository.cs
+│   │   ├── Seeders/
+│   │   │   ├── LibroSeeder.cs
+│   │   │   └── UsuarioSeeder.cs
+│   │   └── Tickets/
+│   │       └── TicketFileWriter.cs
+│   │
+│   ├── UI/                             # Interfaz de usuario en consola
+│   │   └── ConsoleUI/
+│   │       ├── Helpers/
+│   │       └── Menus/
+│   │
+│   ├── Program.cs
+│   └── BibliotecaV1.csproj
 │
-├── Core/                           # Núcleo del dominio
-│   ├── Entities/
-│   ├── Enums/
-│   ├── Exceptions/
-│   └── Interfaces/
+├── docs/                               # Documentación técnica y auditorías
+│   ├── persistencia-mysql.md
+│   ├── revision-inicial.md
+│   └── solucion-severidad-media.md
 │
-├── Infrastructure/                 # Persistencia e implementaciones
-│   ├── Data/
-│   ├── Repositories/
-│   ├── Seeders/
-│   └── Tickets/
-│
-├── UI/                             # Interfaz de consola
-│   └── ConsoleUI/
-│
-├── Data/                           # Datos persistidos localmente
-│
-├── Program.cs
-├── BibliotecaV1.csproj
+├── BibliotecaV1.sln
 └── README.md
 ```
 
@@ -112,14 +121,12 @@ BibliotecaV2/
 
 ## 🟦 Core
 
-Contiene las reglas más importantes del sistema.
+Contiene las reglas y contratos fundamentales del dominio:
 
-### Incluye:
-
-* Entities
-* Enums
-* Interfaces
-* Exceptions
+* `Entities`: `Libro`, `Usuario`, `Prestamo`, `Multa`, `Session`
+* `Enums`: `Rol`, `EstadoPrestamo`, `TipoTicket`
+* `Interfaces`: `ILibroRepository`, `IUsuarioRepository`, `IPrestamoRepository`, `ISessionService`, `ITicketWriter`
+* `Exceptions`: Excepciones de negocio
 
 Esta capa no depende de ninguna otra.
 
@@ -127,9 +134,7 @@ Esta capa no depende de ninguna otra.
 
 ## 🟨 Application
 
-Contiene la lógica de negocio y coordinación del sistema.
-
-### Servicios actuales
+Contiene la lógica de negocio y coordinación de casos de uso:
 
 * `AuthService`
 * `LibroService`
@@ -138,116 +143,73 @@ Contiene la lógica de negocio y coordinación del sistema.
 * `SessionService`
 * `UsuarioService`
 
-También incluye DTOs para desacoplar entradas y salidas.
-
 ---
 
 ## 🟩 Infrastructure
 
-Contiene implementaciones técnicas.
+Contiene las implementaciones técnicas de acceso a datos y sistema de archivos:
 
-### Incluye:
-
-* Repositorios JSON
-* Seeders automáticos
-* Generación de tickets
-* Persistencia local
-
-Actualmente el proyecto usa:
-
-```csharp
-System.Text.Json
-```
-
-para serialización.
+* **Repositorios MySQL (`MySqlConnector`)**: `MySqlLibroRepository`, `MySqlUsuarioRepository`, `MySqlPrestamoRepository`
+* **Repositorios JSON (`System.Text.Json`)**: `JsonLibroRepository`, `JsonUsuarioRepository`, `JsonPrestamoRepository`
+* **Seeders automáticos**: `LibroSeeder` (50 libros) y `UsuarioSeeder` (admin inicial)
+* **Generación de tickets**: `TicketFileWriter`
 
 ---
 
 ## 🟥 UI
 
-Capa responsable únicamente de interacción con consola.
+Capa responsable exclusivamente de la interacción por consola:
 
-La lógica fuerte ya no vive aquí.
-
----
-
-# 🧬 Principios Aplicados
-
-* Separación por responsabilidades
-* Bajo acoplamiento
-* Uso de interfaces
-* Encapsulamiento
-* Persistencia desacoplada
-* Arquitectura preparada para escalar
-* Dominio separado de infraestructura
-* Manejo profesional de errores
+* Menús jerárquicos polimórficos: `MenuUsuario` -> `MenuBibliotecario` -> `MenuAdmin`
+* Vista de acceso: `LoginView`
+* Utilidades de entrada y formato: `InputHelper`, `ConsoleHelper`
 
 ---
 
 # 🛠️ Tecnologías Utilizadas
 
-* C#
-* .NET 8
-* Consola
-* System.Text.Json
-* Programación Orientada a Objetos
+* **C# / .NET 8**
+* **MySQL** (`MySqlConnector` 3.0.0)
+* **BCrypt.Net-Next** (4.2.0) para hashing seguro de contraseñas
+* **System.Text.Json**
+* **Programación Orientada a Objetos y Clean Architecture**
 
 ---
 
-# 📦 Persistencia
+# 🗄️ Persistencia en Base de Datos (MySQL)
 
-Actualmente el proyecto usa persistencia basada en JSON.
+El sistema utiliza la base de datos **`biblioteca_v2`** con tres tablas principales:
 
-Archivos utilizados:
+* `libros`
+* `usuarios`
+* `prestamos`
 
-```plaintext
-Infrastructure/Data/
-├── libros.json
-├── prestamos.json
-└── usuarios.json
-```
-
-Esto permite:
-
-* guardar datos sin bases de datos
-* practicar lógica backend
-* preparar migración futura hacia SQL
-
----
-
-# 🎫 Tickets Automáticos
-
-El sistema genera tickets automáticamente mediante:
-
-```plaintext
-Infrastructure/Tickets/
-```
-
-Esto desacopla completamente la escritura de tickets del resto del sistema.
-
----
-
-# 🧪 Seeders
-
-El proyecto implementa seeders automáticos para generar datos iniciales:
-
-* `LibroSeeder`
-* `UsuarioSeeder`
+Puedes consultar el esquema SQL completo y los detalles de mapeo en [`docs/persistencia-mysql.md`](docs/persistencia-mysql.md), así como el script de 50 libros en [`src/Infrastructure/Data/seed_libros.sql`](src/Infrastructure/Data/seed_libros.sql).
 
 ---
 
 # ▶️ Cómo Ejecutar
 
-## Requisitos
+## 1. Requisitos
 
-* .NET 8 SDK instalado
+* **.NET 8 SDK** instalado
+* Servidor **MySQL** activo con la base de datos `biblioteca_v2` creada (ver [`docs/persistencia-mysql.md`](docs/persistencia-mysql.md))
 
----
+## 2. Configurar conexión a MySQL (PowerShell)
 
-## Ejecutar proyecto
+Puedes definir la contraseña de tu usuario `root` o la cadena completa en variables de entorno:
+
+```powershell
+$env:BIBLIOTECA_DB_PASS = 'tu_password_mysql'
+```
+
+*(Opcionalmente mediante `$env:BIBLIOTECA_DB_CONN = "Server=localhost;Port=3306;Database=biblioteca_v2;User=root;Password=tu_password_mysql;"`).*
+
+## 3. Compilar y ejecutar desde la raíz
 
 ```bash
-dotnet run
+dotnet build
+dotnet run --project src
 ```
 
 ---
@@ -255,62 +217,32 @@ dotnet run
 # 📈 Evolución del Proyecto
 
 ## BibliotecaV1
-
-* Arquitectura básica
-* Servicios mezclados
-* Persistencia simple
-* Menor separación de responsabilidades
-
----
+* Arquitectura monolítica básica
+* Servicios acoplados a la interfaz
+* Persistencia local simple
 
 ## BibliotecaV2
-
-* Refactorización arquitectónica
-* Separación por capas
-* Exceptions personalizadas
-* Interfaces desacopladas
-* DTOs
-* Repositorios JSON
-* Dominio organizado
-* Preparación para SQL/API/WPF
+* Separación por capas en directorio `src/`
+* Persistencia relacional con **MySQL** e interfaces desacopladas
+* Hashing de contraseñas con **BCrypt**
+* Excepciones personalizadas y manejo global de errores
+* Menús por rol (`Usuario`, `Bibliotecario`, `Admin`)
+* Seeders automáticos con catálogo de 50 libros
+* Documentación técnica en `docs/`
 
 ---
 
-# 🔮 Futuro del Proyecto
+# 🔮 Próximos Pasos Planeados
 
-Próximas metas planeadas:
-
-* Migración hacia SQL
-* Repository Pattern más avanzado
-* Unit Testing
-* APIs REST
-* JWT Authentication
-* Logging
-* Dependency Injection
-* Entity Framework
-* WPF
-* Clean Architecture más avanzada
-
----
-
-# 📚 Objetivo Educativo
-
-Este proyecto fue desarrollado principalmente como práctica avanzada de:
-
-* C#
-* Arquitectura de software
-* Programación Orientada a Objetos
-* Persistencia de datos
-* Backend Development
-* Separación por capas
-* Escalabilidad de proyectos
+* Proyecto de **Unit Testing** (`tests/`) con xUnit
+* Persistencia en base de datos para el historial de `Multa`
+* Operaciones de edición y baja lógica de libros
+* API REST y cliente gráfico (WPF)
 
 ---
 
 # 👨‍💻 Autor
 
-Desarrollado por Henry Cuellar.
+Desarrollado por **Henry Cuellar**.
 
-Repositorio:
-
-* urlGitHub - BibliotecaV2[https://github.com/HenC1709/Biblioteca/t](https://github.com/HenC1709/Biblioteca/t)
+* [GitHub - Biblioteca](https://github.com/HenC1709/Biblioteca)

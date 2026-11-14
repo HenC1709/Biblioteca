@@ -165,9 +165,9 @@ Se seleccionaron los 30 pendientes más prioritarios ordenados por severidad; 3 
   - Qué pasa: Se pueden crear usuarios con nombres vacíos o formados únicamente por espacios en blanco sin ninguna restricción de formato.
   - Sugerencia: Validar que el nombre cumpla con una longitud mínima y caracteres alfanuméricos válidos antes de procesar el alta.
 
-- [ ] **[Severidad: media]** Discrepancia entre características documentadas en README y métodos no implementados
-  - Archivo: README.md (líneas 37-38) y Application/Services/LibroService.cs
-  - Qué pasa: La documentación asegura que existen operaciones de modificación y eliminación de libros, pero los servicios carecen de dichos métodos.
+- [x] **[Severidad: media - RESUELTO]** Discrepancia entre características documentadas en README y métodos no implementados
+  - Archivo: README.md y src/Application/Services/LibroService.cs
+  - Qué pasa: La documentación aseguraba que existían operaciones de modificación y eliminación de libros, además de referenciar estructura antigua. (Actualizado `README.md` con las funcionalidades reales, arquitectura `src/` y persistencia MySQL).
   - Sugerencia: Desarrollar las funcionalidades de edición y baja de libros o rectificar el README para reflejar únicamente las funciones operativas.
 
 - [ ] **[Severidad: media]** Falta de salvaguarda ante la revocación del último administrador
